@@ -1,0 +1,29 @@
+# Build outputs
+target/
+frontend/dist/
+
+# Dependencies
+frontend/node_modules/
+
+# Environment and secrets (never commit passwords)
+.env
+.env.*
+!.env.example
+local.properties
+
+# Local configuration
+application-local.properties
+application-prod.properties
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Python/cache and OS files
+__pycache__/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
