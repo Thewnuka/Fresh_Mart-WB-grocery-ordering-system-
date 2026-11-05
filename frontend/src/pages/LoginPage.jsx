@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { callApi } from "../api";
+import PasswordInput from "../PasswordInput";
 
 function LoginPage({ successMessage, onLoginSuccess, onGoToSignUp }) {
   const [email, setEmail] = useState("");
@@ -43,8 +44,9 @@ function LoginPage({ successMessage, onLoginSuccess, onGoToSignUp }) {
 
             <div className="mb-4">
               <label htmlFor="password" className="form-label login-label">Password</label>
-              <input type="password" id="password" className="form-control login-input" placeholder="Enter your password"
-                     value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <PasswordInput id="password" placeholder="Enter your password"
+                             value={password} onChange={(e) => setPassword(e.target.value)}
+                             inputClassName="login-input" buttonClassName="login-eye-button" />
             </div>
 
             <button type="submit" className="btn login-button">Login</button>

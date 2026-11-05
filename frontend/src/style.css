@@ -76,6 +76,19 @@
     box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
 }
 
+.login-eye-button {
+    padding: 0 12px;
+    color: #198754;
+    background-color: #e8f5ee;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.login-eye-button:hover {
+    color: #146c43;
+    background-color: #d1e7dd;
+}
+
 .login-button {
     width: 100%;
     padding: 10px;
@@ -172,6 +185,19 @@
     box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
 }
 
+.signup-eye-button {
+    padding: 0 12px;
+    color: #198754;
+    background-color: #e8f5ee;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.signup-eye-button:hover {
+    color: #146c43;
+    background-color: #d1e7dd;
+}
+
 .signup-button {
     width: 100%;
     padding: 10px;
@@ -228,6 +254,22 @@
     margin-right: 6px;
 }
 
+.welcome-profile-button {
+    padding: 6px 16px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+}
+
+.welcome-profile-button:hover {
+    color: #198754;
+    background-color: #ffffff;
+}
+
 .welcome-logout-button {
     padding: 6px 16px;
     font-size: 14px;
@@ -277,4 +319,158 @@
     margin: 0;
     font-size: 14px;
     color: #6c757d;
+}
+
+/* ======================= PROFILE PAGE ======================= */
+
+.profile-page {
+    min-height: 100vh;
+    padding-bottom: 48px;
+    background-color: #e8f5ee;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ----- Navigation bar ----- */
+
+.profile-navbar {
+    padding: 12px 0;
+    margin-bottom: 32px;
+    background-color: #198754;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-navbar-brand {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.profile-navbar-logo {
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+}
+
+.profile-home-button {
+    padding: 6px 16px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+}
+
+.profile-home-button:hover {
+    color: #198754;
+    background-color: #ffffff;
+}
+
+.profile-logout-button {
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #198754;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 6px;
+}
+
+.profile-logout-button:hover {
+    color: #146c43;
+    background-color: #f1f1f1;
+}
+
+.profile-heading {
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #146c43;
+}
+
+.profile-loading {
+    font-size: 16px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.profile-load-error {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+/* ----- Summary card (View Profile) ----- */
+
+.profile-summary-card {
+    padding: 32px 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #198754;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-avatar {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 16px;
+    line-height: 88px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #198754;
+    border-radius: 50%;
+}
+
+.profile-summary-name {
+    margin-bottom: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.profile-summary-email {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #6c757d;
+    word-break: break-all;
+}
+
+.profile-summary-date {
+    margin: 0;
+    font-size: 13px;
+    color: #198754;
+}
+
+/* ----- Personal Information card ----- */
+
+.profile-info-card {
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-info-title {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #198754;
+    border-bottom: 2px solid #e8f5ee;
+}
+
+.profile-info-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.profile-info-readonly {
+    padding: 10px 12px;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
 }

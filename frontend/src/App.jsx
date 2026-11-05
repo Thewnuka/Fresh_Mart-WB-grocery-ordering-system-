@@ -3,8 +3,9 @@ import { callApi } from "./api";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import WelcomePage from "./pages/WelcomePage";
+import ProfilePage from "./pages/ProfilePage";
 
-// Decides which page to show: "loading", "login", "signup" or "welcome"
+// Decides which page to show: "loading", "login", "signup", "welcome" or "profile"
 function App() {
   const [page, setPage] = useState("loading");
   const [admin, setAdmin] = useState(null);
@@ -41,9 +42,18 @@ function App() {
   if (page === "loading") {
     return null;
   }
-  // Only a logged-in admin can see the Welcome page
+  // Only a logged-in admin can see the Welcome and Profile pages
   if (page === "welcome" && admin) {
-    return <WelcomePage admin={admin} onLogout={handleLogout} />;
+    return <WelcomePage admin={admin} onGoToProfile={() => setPage("profile")} onLogout={handleLogout} />;
+  }
+  if (page === "profile" && admin) {
+    return (
+      <ProfilePage
+        onGoToHome={() => setPage("welcome")}
+        onLogout={handleLogout}
+        onSessionExpired={showLoginPage}
+      />
+    );
   }
   if (page === "signup") {
     return <SignUpPage onSignUpSuccess={showLoginPage} onGoToLogin={() => showLoginPage()} />;

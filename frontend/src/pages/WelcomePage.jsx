@@ -1,5 +1,5 @@
 // Temporary page shown after a successful login (replaced by the Dashboard in a later commit)
-function WelcomePage({ admin, onLogout }) {
+function WelcomePage({ admin, onGoToProfile, onLogout }) {
   return (
     <div className="welcome-page">
       <nav className="welcome-navbar">
@@ -7,7 +7,10 @@ function WelcomePage({ admin, onLogout }) {
           <span className="welcome-navbar-brand">
             <img src="/logo.svg" alt="" className="welcome-navbar-logo" /> FreshMart
           </span>
-          <button type="button" className="btn welcome-logout-button" onClick={onLogout}>Logout</button>
+          <div>
+            <button type="button" className="btn welcome-profile-button" onClick={onGoToProfile}>Profile</button>
+            <button type="button" className="btn welcome-logout-button" onClick={onLogout}>Logout</button>
+          </div>
         </div>
       </nav>
 
