@@ -1,0 +1,280 @@
+/*
+ * FreshMart styles.
+ * Every page has its own section and every element has its own class,
+ * so changing one element never affects another.
+ */
+
+/* ======================= LOGIN PAGE ======================= */
+
+.login-page {
+    min-height: 100vh;
+    padding: 48px 0;
+    background: linear-gradient(135deg, #e8f5ee 0%, #ffffff 60%);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.login-card {
+    max-width: 420px;
+    padding: 40px 32px;
+    background-color: #ffffff;
+    border-top: 5px solid #198754;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.login-logo {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+.login-brand {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #198754;
+}
+
+.login-subtitle {
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.login-title {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.login-success {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.login-error {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.login-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.login-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.login-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.login-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.login-switch-text {
+    margin: 24px 0 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-switch-link {
+    padding: 0;
+    font-weight: 600;
+    color: #198754;
+    background: none;
+    border: none;
+}
+
+/* ======================= SIGN UP PAGE ======================= */
+
+.signup-page {
+    min-height: 100vh;
+    padding: 48px 0;
+    background: linear-gradient(135deg, #e8f5ee 0%, #ffffff 60%);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.signup-card {
+    max-width: 440px;
+    padding: 40px 32px;
+    background-color: #ffffff;
+    border-top: 5px solid #198754;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.signup-logo {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+.signup-brand {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #198754;
+}
+
+.signup-subtitle {
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.signup-title {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.signup-error {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.signup-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.signup-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.signup-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.signup-button {
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.signup-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.signup-switch-text {
+    margin: 24px 0 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.signup-switch-link {
+    padding: 0;
+    font-weight: 600;
+    color: #198754;
+    background: none;
+    border: none;
+}
+
+/* ======================= WELCOME PAGE (temporary, after login) ======================= */
+
+.welcome-page {
+    min-height: 100vh;
+    background-color: #e8f5ee;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.welcome-navbar {
+    padding: 12px 0;
+    margin-bottom: 48px;
+    background-color: #198754;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-navbar-brand {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.welcome-navbar-logo {
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+}
+
+.welcome-logout-button {
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #198754;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 6px;
+}
+
+.welcome-logout-button:hover {
+    color: #146c43;
+    background-color: #f1f1f1;
+}
+
+.welcome-card {
+    max-width: 640px;
+    padding: 48px 32px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.welcome-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 16px;
+}
+
+.welcome-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.welcome-name {
+    color: #198754;
+}
+
+.welcome-text {
+    margin-bottom: 4px;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.welcome-note {
+    margin: 0;
+    font-size: 14px;
+    color: #6c757d;
+}

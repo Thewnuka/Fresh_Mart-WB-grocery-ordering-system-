@@ -1,11 +1,59 @@
-// Starting page of the React app. The admin pages are added in the next commits.
+import { useEffect, useState } from "react";
+import { callApi } from "./api";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import WelcomePage from "./pages/WelcomePage";
+
+// Decides which page to show: "loading", "login", "signup" or "welcome"
 function App() {
+  const [page, setPage] = useState("loading");
+  const [admin, setAdmin] = useState(null);
+  const [loginMessage, setLoginMessage] = useState("");
+
+  // When the app opens, ask the backend whether an admin is already logged in
+  useEffect(() => {
+    callApi("/auth/me").then((result) => {
+      if (result.ok) {
+        setAdmin(result.data);
+        setPage("welcome");
+      } else {
+        setPage("login");
+      }
+    });
+  }, []);
+
+  function showLoginPage(message = "") {
+    setAdmin(null);
+    setLoginMessage(message);
+    setPage("login");
+  }
+
+  function handleLoginSuccess(loggedInAdmin) {
+    setAdmin(loggedInAdmin);
+    setPage("welcome");
+  }
+
+  async function handleLogout() {
+    const result = await callApi("/auth/logout", "POST");
+    showLoginPage(result.data.message);
+  }
+
+  if (page === "loading") {
+    return null;
+  }
+  // Only a logged-in admin can see the Welcome page
+  if (page === "welcome" && admin) {
+    return <WelcomePage admin={admin} onLogout={handleLogout} />;
+  }
+  if (page === "signup") {
+    return <SignUpPage onSignUpSuccess={showLoginPage} onGoToLogin={() => showLoginPage()} />;
+  }
   return (
-    <div className="container py-5 text-center">
-      <img src="/logo.svg" alt="FreshMart logo" width="80" height="80" />
-      <h1 className="mt-3">FreshMart</h1>
-      <p className="text-muted">Supermarket Ordering System</p>
-    </div>
+    <LoginPage
+      successMessage={loginMessage}
+      onLoginSuccess={handleLoginSuccess}
+      onGoToSignUp={() => setPage("signup")}
+    />
   );
 }
 
