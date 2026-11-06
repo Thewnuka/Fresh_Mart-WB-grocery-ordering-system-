@@ -9,7 +9,7 @@
 .login-page {
     min-height: 100vh;
     padding: 48px 0;
-    background: linear-gradient(135deg, #e8f5ee 0%, #ffffff 60%);
+    background: linear-gradient(135deg, #fdecee 0%, #ffffff 60%);
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -17,7 +17,7 @@
     max-width: 420px;
     padding: 40px 32px;
     background-color: #ffffff;
-    border-top: 5px solid #198754;
+    border-top: 5px solid #c82333;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
@@ -32,7 +32,7 @@
     margin: 0;
     font-size: 26px;
     font-weight: 700;
-    color: #198754;
+    color: #c82333;
 }
 
 .login-subtitle {
@@ -72,21 +72,21 @@
 }
 
 .login-input:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .login-eye-button {
     padding: 0 12px;
-    color: #198754;
-    background-color: #e8f5ee;
+    color: #c82333;
+    background-color: #fdecee;
     border: 1px solid #ced4da;
     border-radius: 8px;
 }
 
 .login-eye-button:hover {
-    color: #146c43;
-    background-color: #d1e7dd;
+    color: #a71d2a;
+    background-color: #f8d7da;
 }
 
 .login-button {
@@ -94,14 +94,14 @@
     padding: 10px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .login-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .login-switch-text {
@@ -113,7 +113,7 @@
 .login-switch-link {
     padding: 0;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background: none;
     border: none;
 }
@@ -123,7 +123,7 @@
 .signup-page {
     min-height: 100vh;
     padding: 48px 0;
-    background: linear-gradient(135deg, #e8f5ee 0%, #ffffff 60%);
+    background: linear-gradient(135deg, #fdecee 0%, #ffffff 60%);
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -131,7 +131,7 @@
     max-width: 440px;
     padding: 40px 32px;
     background-color: #ffffff;
-    border-top: 5px solid #198754;
+    border-top: 5px solid #c82333;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
@@ -146,7 +146,7 @@
     margin: 0;
     font-size: 26px;
     font-weight: 700;
-    color: #198754;
+    color: #c82333;
 }
 
 .signup-subtitle {
@@ -181,21 +181,21 @@
 }
 
 .signup-input:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .signup-eye-button {
     padding: 0 12px;
-    color: #198754;
-    background-color: #e8f5ee;
+    color: #c82333;
+    background-color: #fdecee;
     border: 1px solid #ced4da;
     border-radius: 8px;
 }
 
 .signup-eye-button:hover {
-    color: #146c43;
-    background-color: #d1e7dd;
+    color: #a71d2a;
+    background-color: #f8d7da;
 }
 
 .signup-button {
@@ -203,14 +203,14 @@
     padding: 10px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .signup-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .signup-switch-text {
@@ -222,7 +222,7 @@
 .signup-switch-link {
     padding: 0;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background: none;
     border: none;
 }
@@ -231,7 +231,7 @@
 
 .admin-navbar {
     padding: 10px 0;
-    background-color: #198754;
+    background-color: #c82333;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     font-family: "Segoe UI", Arial, sans-serif;
 }
@@ -267,7 +267,7 @@
     padding-right: 10px;
     font-size: 15px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.92);
     border-radius: 6px;
 }
 
@@ -287,14 +287,14 @@
     padding: 6px 18px;
     font-size: 14px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background-color: #ffffff;
     border: none;
     border-radius: 6px;
 }
 
 .admin-navbar-logout:hover {
-    color: #146c43;
+    color: #a71d2a;
     background-color: #f1f1f1;
 }
 
@@ -506,7 +506,7 @@
 .category-page {
     min-height: calc(100vh - 66px);
     padding: 32px 0 48px;
-    background-color: #e8f5ee;
+    background-color: #fdecee;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -514,21 +514,21 @@
     margin: 0;
     font-size: 28px;
     font-weight: 700;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .category-add-button {
     padding: 10px 20px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .category-add-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .category-success {
@@ -547,7 +547,7 @@
     padding: 24px;
     margin-bottom: 24px;
     background-color: #ffffff;
-    border-top: 5px solid #198754;
+    border-top: 5px solid #c82333;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -556,7 +556,7 @@
     margin-bottom: 16px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
 }
 
 .category-label {
@@ -572,8 +572,8 @@
 }
 
 .category-input:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .category-textarea {
@@ -583,8 +583,8 @@
 }
 
 .category-textarea:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .category-save-button {
@@ -592,14 +592,14 @@
     margin-right: 8px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .category-save-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .category-cancel-button {
@@ -634,8 +634,8 @@
 }
 
 .category-search:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .category-table {
@@ -646,7 +646,7 @@
 .category-table th {
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .category-table td {
@@ -656,7 +656,7 @@
 
 .category-table .category-name-cell {
     font-weight: 600;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .category-table .category-empty {
@@ -671,7 +671,7 @@
 .item-page {
     min-height: calc(100vh - 66px);
     padding: 32px 0 48px;
-    background-color: #e8f5ee;
+    background-color: #fdecee;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -679,35 +679,35 @@
     margin: 0;
     font-size: 28px;
     font-weight: 700;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .item-assign-button {
     padding: 10px 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background-color: #ffffff;
-    border: 2px solid #198754;
+    border: 2px solid #c82333;
     border-radius: 8px;
 }
 
 .item-assign-button:hover {
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .item-add-button {
     padding: 10px 20px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #20c997;
+    background-color: #dc3545;
     border: none;
     border-radius: 8px;
 }
 
 .item-add-button:hover {
     color: #ffffff;
-    background-color: #13a77b;
+    background-color: #bb2d3b;
 }
 
 .item-success {
@@ -726,7 +726,7 @@
     padding: 24px;
     margin-bottom: 24px;
     background-color: #ffffff;
-    border-top: 5px solid #20c997;
+    border-top: 5px solid #dc3545;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -735,7 +735,7 @@
     margin-bottom: 16px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
 }
 
 .item-label {
@@ -751,8 +751,8 @@
 }
 
 .item-input:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .item-select {
@@ -762,8 +762,8 @@
 }
 
 .item-select:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .item-textarea {
@@ -773,8 +773,8 @@
 }
 
 .item-textarea:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .item-form-image {
@@ -804,14 +804,14 @@
     margin-right: 8px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .item-save-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .item-cancel-button {
@@ -834,7 +834,7 @@
     padding: 24px;
     margin-bottom: 24px;
     background-color: #ffffff;
-    border-top: 5px solid #198754;
+    border-top: 5px solid #c82333;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -843,7 +843,7 @@
     margin-bottom: 16px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
 }
 
 .item-assign-label {
@@ -859,8 +859,8 @@
 }
 
 .item-assign-select:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .item-assign-save-button {
@@ -868,14 +868,14 @@
     margin-right: 8px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .item-assign-save-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .item-assign-cancel-button {
@@ -908,8 +908,8 @@
 }
 
 .item-search:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .item-table {
@@ -921,7 +921,7 @@
     font-weight: 600;
     white-space: nowrap;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .item-table td {
@@ -939,7 +939,7 @@
 
 .item-name-text {
     font-weight: 600;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .item-description-text {
@@ -961,15 +961,15 @@
     margin-right: 6px;
     font-size: 14px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background-color: #ffffff;
-    border: 1px solid #198754;
+    border: 1px solid #c82333;
     border-radius: 6px;
 }
 
 .item-edit-button:hover {
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .item-delete-button {
@@ -992,7 +992,7 @@
 .profile-page {
     min-height: calc(100vh - 66px);
     padding: 32px 0 48px;
-    background-color: #e8f5ee;
+    background-color: #fdecee;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -1000,7 +1000,7 @@
     margin-bottom: 24px;
     font-size: 28px;
     font-weight: 700;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .profile-loading {
@@ -1019,7 +1019,7 @@
 .profile-summary-card {
     padding: 32px 24px;
     background-color: #ffffff;
-    border-top: 5px solid #198754;
+    border-top: 5px solid #c82333;
     border-radius: 16px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -1032,7 +1032,7 @@
     font-size: 36px;
     font-weight: 700;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border-radius: 50%;
 }
 
@@ -1053,7 +1053,7 @@
 .profile-summary-date {
     margin: 0;
     font-size: 13px;
-    color: #198754;
+    color: #c82333;
 }
 
 /* ----- Personal Information card ----- */
@@ -1071,8 +1071,8 @@
     padding-bottom: 10px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
-    border-bottom: 2px solid #e8f5ee;
+    color: #c82333;
+    border-bottom: 2px solid #fdecee;
 }
 
 .profile-info-success {
@@ -1098,8 +1098,8 @@
 }
 
 .profile-info-input:focus {
-    border-color: #198754;
-    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
 }
 
 .profile-info-readonly {
@@ -1113,15 +1113,15 @@
 .profile-edit-button {
     padding: 10px 24px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background-color: #ffffff;
-    border: 2px solid #198754;
+    border: 2px solid #c82333;
     border-radius: 8px;
 }
 
 .profile-edit-button:hover {
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .profile-save-button {
@@ -1129,14 +1129,14 @@
     margin-right: 8px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .profile-save-button:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .profile-cancel-button {
