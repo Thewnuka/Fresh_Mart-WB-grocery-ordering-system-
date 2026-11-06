@@ -8,7 +8,8 @@ const EDITABLE_ITEM_ID = 1;
 const DELETABLE_ITEM_ID = 2;
 
 // Item Management: shows the items from the database (with images), lets the admin search them,
-// add new items, edit the Samba Rice sample item and delete the Nadu Rice sample item
+// add new items, move any item to another category, edit the Samba Rice sample item
+// and delete the Nadu Rice sample item
 function ItemPage({ onSessionExpired }) {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -26,6 +27,11 @@ function ItemPage({ onSessionExpired }) {
   const [categoryId, setCategoryId] = useState("");
   const [imageFile, setImageFile] = useState(null);       // image chosen by the admin (add only)
   const [imagePreview, setImagePreview] = useState("");   // what the form shows as the image
+
+  // Assign Category form
+  const [showAssignForm, setShowAssignForm] = useState(false);
+  const [assignItemId, setAssignItemId] = useState("");
+  const [assignCategoryId, setAssignCategoryId] = useState("");
 
   useEffect(() => {
     loadItems();
@@ -62,6 +68,7 @@ function ItemPage({ onSessionExpired }) {
     setCategoryId(item ? String(item.category.id) : "");
     setImageFile(null);
     setImagePreview(itemImageUrl(item ? item.imageName : null));
+    setShowAssignForm(false);
     setShowForm(true);
     setSuccessMessage("");
     setErrorMessage("");
@@ -105,6 +112,42 @@ function ItemPage({ onSessionExpired }) {
     }
   }
 
+  function openAssignForm() {
+    setAssignItemId("");
+    setAssignCategoryId("");
+    setShowForm(false);
+    setShowAssignForm(true);
+    setSuccessMessage("");
+    setErrorMessage("");
+  }
+
+  // When an item is chosen, start with its current category selected
+  function chooseAssignItem(itemId) {
+    setAssignItemId(itemId);
+    const item = items.find((i) => String(i.id) === itemId);
+    setAssignCategoryId(item ? String(item.category.id) : "");
+  }
+
+  async function handleAssignSubmit(event) {
+    event.preventDefault();
+    if (assignItemId === "") {
+      setSuccessMessage("");
+      setErrorMessage("Please select an item.");
+      return;
+    }
+    const result = await callApi("/items/" + assignItemId + "/category", "PUT", { categoryId: assignCategoryId });
+
+    if (result.status === 401) {
+      onSessionExpired(result.data.message);
+      return;
+    }
+    showResult(result);
+    if (result.ok) {
+      setShowAssignForm(false);
+      loadItems();
+    }
+  }
+
   async function handleDelete(item) {
     // Ask first; if the admin clicks Cancel nothing is sent to the server
     if (!window.confirm('Delete the item "' + item.name + '"?')) {
@@ -133,7 +176,10 @@ function ItemPage({ onSessionExpired }) {
 
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
           <h1 className="item-heading">Item Management</h1>
-          <button type="button" className="btn item-add-button" onClick={() => openForm(null)}>+ Add New Item</button>
+          <div className="d-flex flex-wrap gap-2">
+            <button type="button" className="btn item-assign-button" onClick={openAssignForm}>Assign Category</button>
+            <button type="button" className="btn item-add-button" onClick={() => openForm(null)}>+ Add New Item</button>
+          </div>
         </div>
 
         {successMessage && <div className="alert alert-success item-success">{successMessage}</div>}
@@ -198,6 +244,42 @@ function ItemPage({ onSessionExpired }) {
               <div className="mt-4">
                 <button type="submit" className="btn item-save-button">{editingItem === null ? "Add Item" : "Save Changes"}</button>
                 <button type="button" className="btn item-cancel-button" onClick={() => setShowForm(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* ---------- Assign Category form ---------- */}
+        {showAssignForm && (
+          <div className="item-assign-card">
+            <h2 className="item-assign-title">Assign Item to Category</h2>
+            <form onSubmit={handleAssignSubmit} noValidate>
+              <div className="row g-3">
+                <div className="col-md-6">
+                  <label htmlFor="assignItem" className="form-label item-assign-label">Item</label>
+                  <select id="assignItem" className="form-select item-assign-select"
+                          value={assignItemId} onChange={(e) => chooseAssignItem(e.target.value)}>
+                    <option value="">-- Select an item --</option>
+                    {items.map((item) => (
+                      <option key={item.id} value={item.id}>{item.name} ({item.category.name})</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="assignCategory" className="form-label item-assign-label">New Category</label>
+                  <select id="assignCategory" className="form-select item-assign-select"
+                          value={assignCategoryId} onChange={(e) => setAssignCategoryId(e.target.value)}>
+                    <option value="">-- Select a category --</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="mt-4">
+                <button type="submit" className="btn item-assign-save-button">Save Assignment</button>
+                <button type="button" className="btn item-assign-cancel-button" onClick={() => setShowAssignForm(false)}>Cancel</button>
               </div>
             </form>
           </div>

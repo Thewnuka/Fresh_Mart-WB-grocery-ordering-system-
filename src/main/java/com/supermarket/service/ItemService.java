@@ -71,6 +71,36 @@ public class ItemService {
     }
 
     /**
+     * Moves an item to another category. Only the category changes; all other item details stay the same.
+     * This works for every item (it is not limited like editing and deleting).
+     *
+     * @return an error message, or null if the category was assigned successfully
+     */
+    public String assignCategory(Long itemId, String categoryIdText) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if (item == null) {
+            return "Item not found.";
+        }
+
+        Category category = null;
+        try {
+            category = categoryRepository.findById(Long.valueOf(categoryIdText.trim())).orElse(null);
+        } catch (NumberFormatException e) {
+            // not a number, so it cannot be a category id
+        }
+        if (category == null) {
+            return "Please select a valid category.";
+        }
+        if (category.getId().equals(item.getCategory().getId())) {
+            return "This item is already in the selected category.";
+        }
+
+        item.setCategory(category);
+        itemRepository.save(item);
+        return null;
+    }
+
+    /**
      * Deletes an item.
      *
      * @return an error message, or null if the item was deleted successfully

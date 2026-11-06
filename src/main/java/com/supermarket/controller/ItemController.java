@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,13 @@ public class ItemController {
             throws IOException {
         String errorMessage = itemService.updateItem(id, name, description, price, stockQuantity, categoryId);
         return buildResponse(errorMessage, "Item updated successfully.");
+    }
+
+    /** PUT /api/items/{id}/category  body: { categoryId }  changes only the item's category */
+    @PutMapping("/{id}/category")
+    public ResponseEntity<Map<String, String>> assignCategory(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String errorMessage = itemService.assignCategory(id, String.valueOf(body.getOrDefault("categoryId", "")));
+        return buildResponse(errorMessage, "Category assigned successfully.");
     }
 
     /** DELETE /api/items/{id} */

@@ -682,6 +682,20 @@
     color: #146c43;
 }
 
+.item-assign-button {
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #198754;
+    background-color: #ffffff;
+    border: 2px solid #198754;
+    border-radius: 8px;
+}
+
+.item-assign-button:hover {
+    color: #ffffff;
+    background-color: #198754;
+}
+
 .item-add-button {
     padding: 10px 20px;
     font-weight: 600;
@@ -810,6 +824,70 @@
 }
 
 .item-cancel-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
+}
+
+/* ----- Assign Category form ----- */
+
+.item-assign-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #198754;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.item-assign-title {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #198754;
+}
+
+.item-assign-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.item-assign-select {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-assign-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.item-assign-save-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.item-assign-save-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.item-assign-cancel-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-assign-cancel-button:hover {
     color: #212529;
     background-color: #f1f3f5;
 }
