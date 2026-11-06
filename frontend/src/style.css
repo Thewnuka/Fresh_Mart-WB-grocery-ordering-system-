@@ -397,42 +397,42 @@
     padding: 10px 20px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
     border: none;
     border-radius: 8px;
 }
 
 .dashboard-quick-categories:hover {
     color: #ffffff;
-    background-color: #146c43;
+    background-color: #a71d2a;
 }
 
 .dashboard-quick-items {
     padding: 10px 20px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #20c997;
+    background-color: #dc3545;
     border: none;
     border-radius: 8px;
 }
 
 .dashboard-quick-items:hover {
     color: #ffffff;
-    background-color: #13a77b;
+    background-color: #bb2d3b;
 }
 
 .dashboard-quick-profile {
     padding: 10px 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
     background-color: #ffffff;
-    border: 2px solid #198754;
+    border: 2px solid #c82333;
     border-radius: 8px;
 }
 
 .dashboard-quick-profile:hover {
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .dashboard-quick-logout {
