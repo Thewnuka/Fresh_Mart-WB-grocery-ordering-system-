@@ -517,9 +517,103 @@
     color: #146c43;
 }
 
+.category-add-button {
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.category-add-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.category-success {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
 .category-error {
     padding: 10px 14px;
     font-size: 15px;
+}
+
+/* ----- Add category form ----- */
+
+.category-form-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #198754;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.category-form-title {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #198754;
+}
+
+.category-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.category-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.category-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.category-textarea {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.category-textarea:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.category-save-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.category-save-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.category-cancel-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.category-cancel-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
 }
 
 /* ----- Category list ----- */
