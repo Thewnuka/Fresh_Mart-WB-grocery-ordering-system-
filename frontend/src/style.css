@@ -775,6 +775,21 @@
     background-color: #198754;
 }
 
+.item-delete-button {
+    padding: 4px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #dc3545;
+    background-color: #ffffff;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+}
+
+.item-delete-button:hover {
+    color: #ffffff;
+    background-color: #dc3545;
+}
+
 /* ======================= PROFILE PAGE ======================= */
 
 .profile-page {

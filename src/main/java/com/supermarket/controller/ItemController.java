@@ -3,6 +3,7 @@ package com.supermarket.controller;
 import com.supermarket.entity.Item;
 import com.supermarket.service.ItemService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,6 +43,13 @@ public class ItemController {
                                                           @RequestParam(defaultValue = "") String categoryId) {
         String errorMessage = itemService.updateItem(id, name, description, price, stockQuantity, categoryId);
         return buildResponse(errorMessage, "Item updated successfully.");
+    }
+
+    /** DELETE /api/items/{id} */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteItem(@PathVariable Long id) {
+        String errorMessage = itemService.deleteItem(id);
+        return buildResponse(errorMessage, "Item deleted successfully.");
     }
 
     /** 400 with the error message, or 200 with the success message. */

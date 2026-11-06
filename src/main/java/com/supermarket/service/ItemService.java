@@ -19,6 +19,9 @@ public class ItemService {
     /** For now only one sample item (Samba Rice, id 1) may be edited. */
     public static final Long EDITABLE_ITEM_ID = 1L;
 
+    /** For now only one sample item (Nadu Rice, id 2) may be deleted. */
+    public static final Long DELETABLE_ITEM_ID = 2L;
+
     private final ItemRepository itemRepository;
     private final CategoryRepository categoryRepository;
 
@@ -101,6 +104,22 @@ public class ItemService {
         item.setStockQuantity(stockQuantity);
         item.setCategory(category);
         itemRepository.save(item);
+        return null;
+    }
+
+    /**
+     * Deletes an item.
+     *
+     * @return an error message, or null if the item was deleted successfully
+     */
+    public String deleteItem(Long itemId) {
+        if (!itemRepository.existsById(itemId)) {
+            return "Item not found.";
+        }
+        if (!DELETABLE_ITEM_ID.equals(itemId)) {
+            return "Only the Nadu Rice sample item can be deleted at the moment.";
+        }
+        itemRepository.deleteById(itemId);
         return null;
     }
 }

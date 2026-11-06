@@ -4,8 +4,11 @@ import { callApi, formatPrice, itemImageUrl, showPlaceholderImage } from "../api
 // For now only one sample item (Samba Rice, id 1) can be edited
 const EDITABLE_ITEM_ID = 1;
 
-// Item Management: shows the items from the database (with images), lets the admin search them
-// and edit the Samba Rice sample item
+// For now only one sample item (Nadu Rice, id 2) can be deleted
+const DELETABLE_ITEM_ID = 2;
+
+// Item Management: shows the items from the database (with images), lets the admin search them,
+// edit the Samba Rice sample item and delete the Nadu Rice sample item
 function ItemPage({ onSessionExpired }) {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -66,6 +69,26 @@ function ItemPage({ onSessionExpired }) {
     formData.append("categoryId", categoryId);
 
     const result = await callApi("/items/" + editingItem.id, "PUT", formData);
+
+    if (result.ok) {
+      setSuccessMessage(result.data.message);
+      setErrorMessage("");
+      setEditingItem(null);
+      loadItems();
+    } else if (result.status === 401) {
+      onSessionExpired(result.data.message);
+    } else {
+      setSuccessMessage("");
+      setErrorMessage(result.data.message);
+    }
+  }
+
+  async function handleDelete(item) {
+    // Ask first; if the admin clicks Cancel nothing is sent to the server
+    if (!window.confirm('Delete the item "' + item.name + '"?')) {
+      return;
+    }
+    const result = await callApi("/items/" + item.id, "DELETE");
 
     if (result.ok) {
       setSuccessMessage(result.data.message);
@@ -200,6 +223,9 @@ function ItemPage({ onSessionExpired }) {
                       <td className="text-end text-nowrap">
                         {item.id === EDITABLE_ITEM_ID && (
                           <button type="button" className="btn item-edit-button" onClick={() => openEditForm(item)}>Edit</button>
+                        )}
+                        {item.id === DELETABLE_ITEM_ID && (
+                          <button type="button" className="btn item-delete-button" onClick={() => handleDelete(item)}>Delete</button>
                         )}
                       </td>
                     </tr>
