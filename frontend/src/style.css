@@ -666,6 +666,119 @@
     color: #6c757d;
 }
 
+.category-view-button {
+    padding: 4px 14px;
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #adb5bd;
+    border-radius: 6px;
+}
+
+.category-view-button:hover {
+    color: #ffffff;
+    background-color: #6c757d;
+}
+
+.category-edit-button {
+    padding: 4px 14px;
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #c82333;
+    background-color: #ffffff;
+    border: 1px solid #c82333;
+    border-radius: 6px;
+}
+
+.category-edit-button:hover {
+    color: #ffffff;
+    background-color: #c82333;
+}
+
+.category-delete-button {
+    padding: 4px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+}
+
+.category-delete-button:hover {
+    color: #ffffff;
+    background-color: #bb2d3b;
+}
+
+/* ----- Category details window ----- */
+
+.category-view-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.category-view-modal {
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #c82333;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.category-view-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #a71d2a;
+}
+
+.category-view-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.category-view-details dt {
+    font-weight: 600;
+    color: #495057;
+}
+
+.category-view-details dd {
+    margin: 0;
+    color: #212529;
+    word-break: break-word;
+}
+
+.category-view-close-button {
+    padding: 8px 22px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #c82333;
+    border: none;
+    border-radius: 8px;
+}
+
+.category-view-close-button:hover {
+    color: #ffffff;
+    background-color: #a71d2a;
+}
+
 /* ======================= ITEM MANAGEMENT PAGE ======================= */
 
 .item-page {
@@ -972,19 +1085,112 @@
     background-color: #c82333;
 }
 
+.item-view-button {
+    padding: 4px 14px;
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    background-color: #ffffff;
+    border: 1px solid #adb5bd;
+    border-radius: 6px;
+}
+
+.item-view-button:hover {
+    color: #ffffff;
+    background-color: #6c757d;
+}
+
 .item-delete-button {
     padding: 4px 14px;
     font-size: 14px;
     font-weight: 600;
-    color: #dc3545;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #dc3545;
     border: 1px solid #dc3545;
     border-radius: 6px;
 }
 
 .item-delete-button:hover {
     color: #ffffff;
-    background-color: #dc3545;
+    background-color: #bb2d3b;
+}
+
+/* ----- Item details window ----- */
+
+.item-view-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.item-view-modal {
+    width: 100%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #c82333;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.item-view-title {
+    margin-bottom: 16px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #a71d2a;
+}
+
+.item-view-image {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 4 / 3;
+    margin: 0 auto 16px;
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+.item-view-details {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 8px 16px;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.item-view-details dt {
+    font-weight: 600;
+    color: #495057;
+}
+
+.item-view-details dd {
+    margin: 0;
+    color: #212529;
+    word-break: break-word;
+}
+
+.item-view-close-button {
+    padding: 8px 22px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #c82333;
+    border: none;
+    border-radius: 8px;
+}
+
+.item-view-close-button:hover {
+    color: #ffffff;
+    background-color: #a71d2a;
 }
 
 /* ======================= PROFILE PAGE ======================= */

@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
-import { callApi, formatPrice, itemImageUrl, showPlaceholderImage } from "../api";
-
-// For now only one sample item (Samba Rice, id 1) can be edited
-const EDITABLE_ITEM_ID = 1;
-
-// For now only one sample item (Nadu Rice, id 2) can be deleted
-const DELETABLE_ITEM_ID = 2;
+import { callApi, formatDate, formatPrice, itemImageUrl, showPlaceholderImage } from "../api";
 
 // Item Management: shows the items from the database (with images), lets the admin search them,
-// add new items, move any item to another category, edit the Samba Rice sample item
-// and delete the Nadu Rice sample item
+// view, add, edit and delete items, and move an item to another category
 function ItemPage({ onSessionExpired }) {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -25,13 +18,16 @@ function ItemPage({ onSessionExpired }) {
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [imageFile, setImageFile] = useState(null);       // image chosen by the admin (add only)
+  const [imageFile, setImageFile] = useState(null);       // new image chosen by the admin (optional)
   const [imagePreview, setImagePreview] = useState("");   // what the form shows as the image
 
   // Assign Category form
   const [showAssignForm, setShowAssignForm] = useState(false);
   const [assignItemId, setAssignItemId] = useState("");
   const [assignCategoryId, setAssignCategoryId] = useState("");
+
+  // View details window
+  const [viewedItem, setViewedItem] = useState(null);
 
   useEffect(() => {
     loadItems();
@@ -231,13 +227,11 @@ function ItemPage({ onSessionExpired }) {
                 <div className="col-md-4">
                   <label htmlFor="itemImage" className="form-label item-label">Image</label>
                   <img src={imagePreview} alt="Item preview" className="item-form-image" onError={showPlaceholderImage} />
-                  {editingItem === null && (
-                    <>
-                      <input type="file" id="itemImage" className="form-control item-file-input"
-                             accept=".jpg,.jpeg,.png,.gif,.webp" onChange={handleImageChange} />
-                      <p className="item-image-hint">JPG, PNG, GIF or WEBP, up to 5 MB. Optional.</p>
-                    </>
-                  )}
+                  <input type="file" id="itemImage" className="form-control item-file-input"
+                         accept=".jpg,.jpeg,.png,.gif,.webp" onChange={handleImageChange} />
+                  <p className="item-image-hint">
+                    JPG, PNG, GIF or WEBP, up to 5 MB. {editingItem === null ? "Optional." : "Leave empty to keep the current image."}
+                  </p>
                 </div>
               </div>
 
@@ -330,12 +324,9 @@ function ItemPage({ onSessionExpired }) {
                       <td className="text-nowrap">{formatPrice(item.price)}</td>
                       <td>{item.stockQuantity}</td>
                       <td className="text-end text-nowrap">
-                        {item.id === EDITABLE_ITEM_ID && (
-                          <button type="button" className="btn item-edit-button" onClick={() => openForm(item)}>Edit</button>
-                        )}
-                        {item.id === DELETABLE_ITEM_ID && (
-                          <button type="button" className="btn item-delete-button" onClick={() => handleDelete(item)}>Delete</button>
-                        )}
+                        <button type="button" className="btn item-view-button" onClick={() => setViewedItem(item)}>View</button>
+                        <button type="button" className="btn item-edit-button" onClick={() => openForm(item)}>Edit</button>
+                        <button type="button" className="btn item-delete-button" onClick={() => handleDelete(item)}>Delete</button>
                       </td>
                     </tr>
                   ))
@@ -344,6 +335,27 @@ function ItemPage({ onSessionExpired }) {
             </table>
           </div>
         </div>
+
+        {/* ---------- View details window ---------- */}
+        {viewedItem && (
+          <div className="item-view-overlay" onClick={() => setViewedItem(null)}>
+            <div className="item-view-modal" onClick={(e) => e.stopPropagation()}>
+              <h2 className="item-view-title">{viewedItem.name}</h2>
+              <img src={itemImageUrl(viewedItem.imageName)} alt={viewedItem.name} className="item-view-image"
+                   onError={showPlaceholderImage} />
+              <dl className="item-view-details">
+                <dt>Item ID</dt><dd>{viewedItem.id}</dd>
+                <dt>Name</dt><dd>{viewedItem.name}</dd>
+                <dt>Description</dt><dd>{viewedItem.description || "No description"}</dd>
+                <dt>Category</dt><dd>{viewedItem.category.name}</dd>
+                <dt>Price</dt><dd>{formatPrice(viewedItem.price)}</dd>
+                <dt>Stock Quantity</dt><dd>{viewedItem.stockQuantity}</dd>
+                <dt>Added On</dt><dd>{formatDate(viewedItem.createdAt)}</dd>
+              </dl>
+              <button type="button" className="btn item-view-close-button" onClick={() => setViewedItem(null)}>Close</button>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

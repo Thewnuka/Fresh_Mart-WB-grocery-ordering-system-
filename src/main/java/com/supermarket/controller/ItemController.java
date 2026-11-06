@@ -51,16 +51,17 @@ public class ItemController {
         return buildResponse(errorMessage, "Item added successfully.");
     }
 
-    /** PUT /api/items/{id}  form fields: name, description, price, stockQuantity, categoryId */
+    /** PUT /api/items/{id}  same form fields as adding; image is optional (without it the current image is kept) */
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, String>> updateItem(@PathVariable Long id,
                                                           @RequestParam(defaultValue = "") String name,
                                                           @RequestParam(defaultValue = "") String description,
                                                           @RequestParam(defaultValue = "") String price,
                                                           @RequestParam(defaultValue = "") String stockQuantity,
-                                                          @RequestParam(defaultValue = "") String categoryId)
+                                                          @RequestParam(defaultValue = "") String categoryId,
+                                                          @RequestParam(required = false) MultipartFile image)
             throws IOException {
-        String errorMessage = itemService.updateItem(id, name, description, price, stockQuantity, categoryId);
+        String errorMessage = itemService.updateItem(id, name, description, price, stockQuantity, categoryId, image);
         return buildResponse(errorMessage, "Item updated successfully.");
     }
 

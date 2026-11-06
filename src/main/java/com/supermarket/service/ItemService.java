@@ -21,15 +21,12 @@ import java.util.UUID;
 @Service
 public class ItemService {
 
-    /** For now only one sample item (Samba Rice, id 1) may be edited. */
-    public static final Long EDITABLE_ITEM_ID = 1L;
-
-    /** For now only one sample item (Nadu Rice, id 2) may be deleted. */
-    public static final Long DELETABLE_ITEM_ID = 2L;
-
     /** Folder (inside the project) where item image files are saved. */
     private static final Path IMAGE_FOLDER = Path.of("item-images");
     private static final List<String> ALLOWED_IMAGE_TYPES = List.of(".jpg", ".jpeg", ".png", ".gif", ".webp");
+
+    /** File names given to uploaded images (a random UUID + extension). Sample images (.svg) never match. */
+    private static final String UPLOADED_IMAGE_NAME = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.(jpg|jpeg|png|gif|webp)";
 
     private final ItemRepository itemRepository;
     private final CategoryRepository categoryRepository;
@@ -54,25 +51,27 @@ public class ItemService {
     }
 
     /**
-     * Updates the details of an existing item.
+     * Updates an existing item. The image is optional: without a new image the current image is kept.
      *
      * @return an error message, or null if the item was updated successfully
      */
     public String updateItem(Long itemId, String name, String description, String priceText,
-                             String stockText, String categoryIdText) throws IOException {
+                             String stockText, String categoryIdText, MultipartFile image) throws IOException {
         Item item = itemRepository.findById(itemId).orElse(null);
         if (item == null) {
             return "Item not found.";
         }
-        if (!EDITABLE_ITEM_ID.equals(itemId)) {
-            return "Only the Samba Rice sample item can be edited at the moment.";
+        String oldImageName = item.getImageName();
+
+        String errorMessage = saveItem(item, name, description, priceText, stockText, categoryIdText, image);
+        if (errorMessage == null && oldImageName != null && !oldImageName.equals(item.getImageName())) {
+            deleteImageIfUnused(oldImageName); // the old picture was replaced
         }
-        return saveItem(item, name, description, priceText, stockText, categoryIdText, null);
+        return errorMessage;
     }
 
     /**
      * Moves an item to another category. Only the category changes; all other item details stay the same.
-     * This works for every item (it is not limited like editing and deleting).
      *
      * @return an error message, or null if the category was assigned successfully
      */
@@ -82,12 +81,7 @@ public class ItemService {
             return "Item not found.";
         }
 
-        Category category = null;
-        try {
-            category = categoryRepository.findById(Long.valueOf(categoryIdText.trim())).orElse(null);
-        } catch (NumberFormatException e) {
-            // not a number, so it cannot be a category id
-        }
+        Category category = findCategory(categoryIdText);
         if (category == null) {
             return "Please select a valid category.";
         }
@@ -101,18 +95,17 @@ public class ItemService {
     }
 
     /**
-     * Deletes an item.
+     * Deletes an item. Its uploaded image file is removed too, unless another item still uses it.
      *
      * @return an error message, or null if the item was deleted successfully
      */
     public String deleteItem(Long itemId) {
-        if (!itemRepository.existsById(itemId)) {
+        Item item = itemRepository.findById(itemId).orElse(null);
+        if (item == null) {
             return "Item not found.";
         }
-        if (!DELETABLE_ITEM_ID.equals(itemId)) {
-            return "Only the Nadu Rice sample item can be deleted at the moment.";
-        }
-        itemRepository.deleteById(itemId);
+        itemRepository.delete(item);
+        deleteImageIfUnused(item.getImageName());
         return null;
     }
 
@@ -146,6 +139,9 @@ public class ItemService {
         if (price.compareTo(BigDecimal.ZERO) <= 0) {
             return "Price must be greater than zero.";
         }
+        if (price.compareTo(new BigDecimal("99999999.99")) > 0) {
+            return "Price is too large.";
+        }
 
         int stockQuantity;
         try {
@@ -157,12 +153,7 @@ public class ItemService {
             return "Stock quantity cannot be negative.";
         }
 
-        Category category = null;
-        try {
-            category = categoryRepository.findById(Long.valueOf(categoryIdText.trim())).orElse(null);
-        } catch (NumberFormatException e) {
-            // not a number, so it cannot be a category id
-        }
+        Category category = findCategory(categoryIdText);
         if (category == null) {
             return "Please select a valid category.";
         }
@@ -190,6 +181,15 @@ public class ItemService {
         return null;
     }
 
+    /** Returns the category with this id, or null if the text is not a valid category id. */
+    private Category findCategory(String categoryIdText) {
+        try {
+            return categoryRepository.findById(Long.valueOf(categoryIdText.trim())).orElse(null);
+        } catch (NumberFormatException e) {
+            return null; // not a number, so it cannot be a category id
+        }
+    }
+
     /**
      * Saves the uploaded image in the item-images folder with a new unique file name.
      *
@@ -206,5 +206,20 @@ public class ItemService {
         Files.createDirectories(IMAGE_FOLDER);
         Files.copy(image.getInputStream(), IMAGE_FOLDER.resolve(fileName));
         return fileName;
+    }
+
+    /**
+     * Removes an uploaded image file when no item uses it any more.
+     * Sample images (.svg) and any file name that was not created by an upload are never removed.
+     */
+    private void deleteImageIfUnused(String imageName) {
+        if (imageName == null || !imageName.matches(UPLOADED_IMAGE_NAME) || itemRepository.countByImageName(imageName) > 0) {
+            return;
+        }
+        try {
+            Files.deleteIfExists(IMAGE_FOLDER.resolve(imageName));
+        } catch (IOException e) {
+            // the file could not be removed; the item change itself is already saved
+        }
     }
 }

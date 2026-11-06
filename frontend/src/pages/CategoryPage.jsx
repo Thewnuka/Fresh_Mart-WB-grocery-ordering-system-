@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
-import { callApi } from "../api";
+import { callApi, formatDate } from "../api";
 
-// Category Management: shows the categories from the database, lets the admin search them
-// and add new categories
+// Category Management: view, search, add, edit and delete categories
 function CategoryPage({ onSessionExpired }) {
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Add form
+  // Add / Edit form
   const [showForm, setShowForm] = useState(false);
+  const [editingCategory, setEditingCategory] = useState(null); // null = adding a new category
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  // View details window
+  const [viewedCategory, setViewedCategory] = useState(null);
 
   useEffect(() => {
     loadCategories();
@@ -29,25 +32,58 @@ function CategoryPage({ onSessionExpired }) {
     }
   }
 
-  function openAddForm() {
-    setName("");
-    setDescription("");
+  // Shows the result of a save or delete; returns true when it worked
+  function showResult(result) {
+    if (result.status === 401) {
+      onSessionExpired(result.data.message);
+      return false;
+    }
+    setSuccessMessage(result.ok ? result.data.message : "");
+    setErrorMessage(result.ok ? "" : result.data.message);
+    return result.ok;
+  }
+
+  // Opens the form; category is null when adding a new category
+  function openForm(category) {
+    setEditingCategory(category);
+    setName(category ? category.name : "");
+    setDescription(category ? category.description || "" : "");
     setShowForm(true);
     setSuccessMessage("");
     setErrorMessage("");
+    window.scrollTo(0, 0);
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const result = await callApi("/categories", "POST", { name, description });
+    const body = { name, description };
+    const result = editingCategory === null
+      ? await callApi("/categories", "POST", body)
+      : await callApi("/categories/" + editingCategory.id, "PUT", body);
 
-    if (result.status === 401) {
-      onSessionExpired(result.data.message);
+    if (showResult(result)) {
+      setShowForm(false);
+      loadCategories();
+    }
+  }
+
+  // Loads the details (including the number of items) from the backend
+  async function handleView(category) {
+    const result = await callApi("/categories/" + category.id);
+    if (result.ok) {
+      setViewedCategory(result.data);
+    } else {
+      showResult(result);
+    }
+  }
+
+  async function handleDelete(category) {
+    // Ask first; if the admin clicks Cancel nothing is sent to the server
+    if (!window.confirm('Delete the category "' + category.name + '"?')) {
       return;
     }
-    setSuccessMessage(result.ok ? result.data.message : "");
-    setErrorMessage(result.ok ? "" : result.data.message);
-    if (result.ok) {
+    const result = await callApi("/categories/" + category.id, "DELETE");
+    if (showResult(result)) {
       setShowForm(false);
       loadCategories();
     }
@@ -63,16 +99,16 @@ function CategoryPage({ onSessionExpired }) {
 
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
           <h1 className="category-heading">Category Management</h1>
-          <button type="button" className="btn category-add-button" onClick={openAddForm}>+ Add New Category</button>
+          <button type="button" className="btn category-add-button" onClick={() => openForm(null)}>+ Add New Category</button>
         </div>
 
         {successMessage && <div className="alert alert-success category-success">{successMessage}</div>}
         {errorMessage && <div className="alert alert-danger category-error">{errorMessage}</div>}
 
-        {/* ---------- Add form ---------- */}
+        {/* ---------- Add / Edit form ---------- */}
         {showForm && (
           <div className="category-form-card">
-            <h2 className="category-form-title">Add New Category</h2>
+            <h2 className="category-form-title">{editingCategory === null ? "Add New Category" : "Edit Category"}</h2>
             {/* noValidate: all checks are done by the backend, so its clear messages are shown */}
             <form onSubmit={handleSubmit} noValidate>
               <div className="mb-3">
@@ -86,7 +122,9 @@ function CategoryPage({ onSessionExpired }) {
                           placeholder="Short description of this category"
                           value={description} onChange={(e) => setDescription(e.target.value)} />
               </div>
-              <button type="submit" className="btn category-save-button">Add Category</button>
+              <button type="submit" className="btn category-save-button">
+                {editingCategory === null ? "Add Category" : "Save Changes"}
+              </button>
               <button type="button" className="btn category-cancel-button" onClick={() => setShowForm(false)}>Cancel</button>
             </form>
           </div>
@@ -104,12 +142,13 @@ function CategoryPage({ onSessionExpired }) {
                   <th>ID</th>
                   <th>Category Name</th>
                   <th>Description</th>
+                  <th className="text-end">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {visibleCategories.length === 0 ? (
                   <tr>
-                    <td colSpan="3" className="category-empty">
+                    <td colSpan="4" className="category-empty">
                       {categories.length === 0 ? "No categories have been added yet." : "No categories found."}
                     </td>
                   </tr>
@@ -119,6 +158,11 @@ function CategoryPage({ onSessionExpired }) {
                       <td>{category.id}</td>
                       <td className="category-name-cell">{category.name}</td>
                       <td>{category.description}</td>
+                      <td className="text-end text-nowrap">
+                        <button type="button" className="btn category-view-button" onClick={() => handleView(category)}>View</button>
+                        <button type="button" className="btn category-edit-button" onClick={() => openForm(category)}>Edit</button>
+                        <button type="button" className="btn category-delete-button" onClick={() => handleDelete(category)}>Delete</button>
+                      </td>
                     </tr>
                   ))
                 )}
@@ -126,6 +170,23 @@ function CategoryPage({ onSessionExpired }) {
             </table>
           </div>
         </div>
+
+        {/* ---------- View details window ---------- */}
+        {viewedCategory && (
+          <div className="category-view-overlay" onClick={() => setViewedCategory(null)}>
+            <div className="category-view-modal" onClick={(e) => e.stopPropagation()}>
+              <h2 className="category-view-title">{viewedCategory.name}</h2>
+              <dl className="category-view-details">
+                <dt>Category ID</dt><dd>{viewedCategory.id}</dd>
+                <dt>Name</dt><dd>{viewedCategory.name}</dd>
+                <dt>Description</dt><dd>{viewedCategory.description || "No description"}</dd>
+                <dt>Items in this category</dt><dd>{viewedCategory.itemCount}</dd>
+                <dt>Created</dt><dd>{formatDate(viewedCategory.createdAt)}</dd>
+              </dl>
+              <button type="button" className="btn category-view-close-button" onClick={() => setViewedCategory(null)}>Close</button>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

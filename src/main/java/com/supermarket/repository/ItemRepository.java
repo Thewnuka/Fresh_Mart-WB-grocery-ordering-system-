@@ -17,4 +17,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     /** The 5 most recently added items (highest id first), for the dashboard. */
     List<Item> findTop5ByOrderByIdDesc();
+
+    /** Number of items in a category (used to stop deleting a category that still has items). */
+    long countByCategoryId(Long categoryId);
+
+    /** Number of items that use this image file (an image file is only removed when no item uses it). */
+    long countByImageName(String imageName);
 }
