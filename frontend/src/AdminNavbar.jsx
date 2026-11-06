@@ -3,6 +3,7 @@ import { useState } from "react";
 // Pages that appear in the navigation bar
 const NAV_LINKS = [
   { page: "dashboard", label: "Dashboard" },
+  { page: "categories", label: "Categories" },
   { page: "profile", label: "Profile" },
 ];
 

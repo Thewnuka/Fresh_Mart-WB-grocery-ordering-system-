@@ -13,6 +13,9 @@ function DashboardPage({ admin, onNavigate, onLogout }) {
         <div className="dashboard-quick-card">
           <h2 className="dashboard-quick-title">Quick Navigation</h2>
           <div className="d-flex flex-wrap gap-2">
+            <button type="button" className="btn dashboard-quick-categories" onClick={() => onNavigate("categories")}>
+              Manage Categories
+            </button>
             <button type="button" className="btn dashboard-quick-profile" onClick={() => onNavigate("profile")}>
               My Profile
             </button>
