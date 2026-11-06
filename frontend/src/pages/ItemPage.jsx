@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { callApi, formatPrice, itemImageUrl, showPlaceholderImage } from "../api";
 
-// Item Management: shows the list of items and lets the admin search it.
-// The item table is not in the database yet, so the list is still empty.
-function ItemPage() {
-  const items = []; // will be loaded from the database once items exist
+// Item Management: shows the items from the database (with images) and lets the admin search them
+function ItemPage({ onSessionExpired }) {
+  const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Search by name (done in the browser)
+  // Load the items when the page opens
+  useEffect(() => {
+    callApi("/items").then((result) => {
+      if (result.ok) {
+        setItems(result.data);
+      } else if (result.status === 401) {
+        onSessionExpired(result.data.message);
+      } else {
+        setErrorMessage(result.data.message);
+      }
+    });
+  }, []);
+
+  // Search by name (done in the browser because all items are already loaded)
   const visibleItems = items.filter((item) =>
     item.name.toLowerCase().includes(search.trim().toLowerCase()));
 
@@ -17,6 +31,8 @@ function ItemPage() {
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
           <h1 className="item-heading">Item Management</h1>
         </div>
+
+        {errorMessage && <div className="alert alert-danger item-error">{errorMessage}</div>}
 
         {/* ---------- Item list ---------- */}
         <div className="item-table-card">
@@ -49,11 +65,17 @@ function ItemPage() {
                 ) : (
                   visibleItems.map((item) => (
                     <tr key={item.id}>
-                      <td>{/* item image is added together with the item data */}</td>
+                      <td>
+                        <img src={itemImageUrl(item.imageName)} alt={item.name} className="item-table-image"
+                             onError={showPlaceholderImage} />
+                      </td>
                       <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>{item.categoryName}</td>
-                      <td>{item.price}</td>
+                      <td>
+                        <div className="item-name-text">{item.name}</div>
+                        <div className="item-description-text">{item.description}</div>
+                      </td>
+                      <td className="text-nowrap">{item.category.name}</td>
+                      <td className="text-nowrap">{formatPrice(item.price)}</td>
                       <td>{item.stockQuantity}</td>
                     </tr>
                   ))

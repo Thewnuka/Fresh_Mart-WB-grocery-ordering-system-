@@ -324,6 +324,58 @@
     color: #6c757d;
 }
 
+/* ----- Statistic card: Total Categories ----- */
+
+.dashboard-category-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border-left: 6px solid #198754;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-category-label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+}
+
+.dashboard-category-count {
+    margin: 4px 0 0;
+    font-size: 40px;
+    font-weight: 700;
+    color: #198754;
+}
+
+/* ----- Statistic card: Total Items ----- */
+
+.dashboard-item-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border-left: 6px solid #20c997;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-item-label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+}
+
+.dashboard-item-count {
+    margin: 4px 0 0;
+    font-size: 40px;
+    font-weight: 700;
+    color: #13a77b;
+}
+
 /* ----- Quick Navigation ----- */
 
 .dashboard-quick-card {
@@ -397,6 +449,58 @@
     background-color: #dc3545;
 }
 
+.dashboard-error {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+/* ----- Recently Added Items table ----- */
+
+.dashboard-recent-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-recent-title {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #198754;
+}
+
+.dashboard-recent-table {
+    margin: 0;
+    font-size: 15px;
+}
+
+.dashboard-recent-table th {
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+}
+
+.dashboard-recent-table td {
+    color: #212529;
+    vertical-align: middle;
+}
+
+.dashboard-recent-table .dashboard-recent-empty {
+    padding: 32px;
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.dashboard-recent-image {
+    width: 48px;
+    height: 36px;
+    object-fit: cover;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+}
+
 /* ======================= CATEGORY MANAGEMENT PAGE ======================= */
 
 .category-page {
@@ -411,6 +515,11 @@
     font-size: 28px;
     font-weight: 700;
     color: #146c43;
+}
+
+.category-error {
+    padding: 10px 14px;
+    font-size: 15px;
 }
 
 /* ----- Category list ----- */
@@ -479,6 +588,11 @@
     color: #146c43;
 }
 
+.item-error {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
 /* ----- Item list ----- */
 
 .item-table-card {
@@ -514,6 +628,26 @@
 .item-table td {
     color: #212529;
     vertical-align: middle;
+}
+
+.item-table-image {
+    width: 72px;
+    height: 54px;
+    object-fit: cover;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.item-name-text {
+    font-weight: 600;
+    color: #146c43;
+}
+
+.item-description-text {
+    min-width: 200px;
+    max-width: 320px;
+    font-size: 13px;
+    color: #6c757d;
 }
 
 .item-table .item-empty {

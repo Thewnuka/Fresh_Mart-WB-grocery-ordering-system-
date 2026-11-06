@@ -54,10 +54,10 @@ function App() {
         <AdminNavbar activePage={page} onNavigate={setPage} onLogout={handleLogout} />
 
         {page === "dashboard" && (
-          <DashboardPage admin={admin} onNavigate={setPage} onLogout={handleLogout} />
+          <DashboardPage admin={admin} onNavigate={setPage} onLogout={handleLogout} onSessionExpired={showLoginPage} />
         )}
-        {page === "categories" && <CategoryPage />}
-        {page === "items" && <ItemPage />}
+        {page === "categories" && <CategoryPage onSessionExpired={showLoginPage} />}
+        {page === "items" && <ItemPage onSessionExpired={showLoginPage} />}
         {page === "profile" && (
           <ProfilePage onProfileUpdated={setAdmin} onSessionExpired={showLoginPage} />
         )}

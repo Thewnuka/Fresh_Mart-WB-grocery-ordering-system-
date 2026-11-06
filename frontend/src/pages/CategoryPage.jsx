@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { callApi } from "../api";
 
-// Category Management: shows the list of categories and lets the admin search it.
-// The category table is not in the database yet, so the list is still empty.
-function CategoryPage() {
-  const categories = []; // will be loaded from the database once categories exist
+// Category Management: shows the categories from the database and lets the admin search them
+function CategoryPage({ onSessionExpired }) {
+  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // Search by name (done in the browser)
+  // Load the categories when the page opens
+  useEffect(() => {
+    callApi("/categories").then((result) => {
+      if (result.ok) {
+        setCategories(result.data);
+      } else if (result.status === 401) {
+        onSessionExpired(result.data.message);
+      } else {
+        setErrorMessage(result.data.message);
+      }
+    });
+  }, []);
+
+  // Search by name (done in the browser because all categories are already loaded)
   const visibleCategories = categories.filter((category) =>
     category.name.toLowerCase().includes(search.trim().toLowerCase()));
 
@@ -17,6 +31,8 @@ function CategoryPage() {
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
           <h1 className="category-heading">Category Management</h1>
         </div>
+
+        {errorMessage && <div className="alert alert-danger category-error">{errorMessage}</div>}
 
         {/* ---------- Category list ---------- */}
         <div className="category-table-card">

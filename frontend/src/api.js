@@ -24,3 +24,20 @@ export async function callApi(path, method = "GET", body = null) {
 export function formatDate(dateText) {
   return new Date(dateText).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
+
+// Turns 1450 into "Rs. 1,450.00"
+export function formatPrice(price) {
+  return "Rs. " + Number(price).toLocaleString("en-LK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// Address of an item's image, or the "No Image" placeholder when the item has no image
+export function itemImageUrl(imageName) {
+  return imageName ? SERVER_URL + "/item-images/" + imageName : "/no-image.svg";
+}
+
+// Used as onError on <img> tags: shows the placeholder if an image file cannot be loaded
+export function showPlaceholderImage(event) {
+  if (!event.currentTarget.src.endsWith("/no-image.svg")) {
+    event.currentTarget.src = "/no-image.svg";
+  }
+}
