@@ -588,9 +588,111 @@
     color: #146c43;
 }
 
+.item-success {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
 .item-error {
     padding: 10px 14px;
     font-size: 15px;
+}
+
+/* ----- Edit item form ----- */
+
+.item-form-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #20c997;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.item-form-title {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #198754;
+}
+
+.item-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.item-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.item-select {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.item-textarea {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-textarea:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.item-form-image {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 10px;
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+}
+
+.item-save-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #198754;
+    border: none;
+    border-radius: 8px;
+}
+
+.item-save-button:hover {
+    color: #ffffff;
+    background-color: #146c43;
+}
+
+.item-cancel-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-cancel-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
 }
 
 /* ----- Item list ----- */
@@ -655,6 +757,22 @@
     text-align: center;
     font-style: italic;
     color: #6c757d;
+}
+
+.item-edit-button {
+    padding: 4px 14px;
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #198754;
+    background-color: #ffffff;
+    border: 1px solid #198754;
+    border-radius: 6px;
+}
+
+.item-edit-button:hover {
+    color: #ffffff;
+    background-color: #198754;
 }
 
 /* ======================= PROFILE PAGE ======================= */

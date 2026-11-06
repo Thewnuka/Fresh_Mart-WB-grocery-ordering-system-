@@ -4,6 +4,7 @@ import com.supermarket.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Database access for {@link Item} records.
@@ -11,6 +12,8 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findAllByOrderByIdAsc();
+
+    Optional<Item> findByNameIgnoreCase(String name);
 
     /** The 5 most recently added items (highest id first), for the dashboard. */
     List<Item> findTop5ByOrderByIdDesc();

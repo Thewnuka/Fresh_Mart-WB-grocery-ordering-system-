@@ -1,12 +1,15 @@
 // Address of the Spring Boot backend
 const SERVER_URL = "http://localhost:8080";
 
-// Sends a JSON request to the backend and returns { ok, status, data }.
+// Sends a request to the backend and returns { ok, status, data }.
+// "body" can be a normal object (sent as JSON) or FormData (sent as form fields).
 // status is the HTTP status code (401 = not logged in), or 0 if the server could not be reached.
 export async function callApi(path, method = "GET", body = null) {
   const options = { method: method, credentials: "include" }; // send the session cookie
 
-  if (body !== null) {
+  if (body instanceof FormData) {
+    options.body = body; // the browser sets the multipart Content-Type itself
+  } else if (body !== null) {
     options.headers = { "Content-Type": "application/json" };
     options.body = JSON.stringify(body);
   }
