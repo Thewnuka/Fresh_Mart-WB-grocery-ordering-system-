@@ -355,6 +355,20 @@
     background-color: #146c43;
 }
 
+.dashboard-quick-items {
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #20c997;
+    border: none;
+    border-radius: 8px;
+}
+
+.dashboard-quick-items:hover {
+    color: #ffffff;
+    background-color: #13a77b;
+}
+
 .dashboard-quick-profile {
     padding: 10px 20px;
     font-weight: 600;
@@ -443,6 +457,66 @@
 }
 
 .category-table .category-empty {
+    padding: 32px;
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+}
+
+/* ======================= ITEM MANAGEMENT PAGE ======================= */
+
+.item-page {
+    min-height: calc(100vh - 66px);
+    padding: 32px 0 48px;
+    background-color: #e8f5ee;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.item-heading {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #146c43;
+}
+
+/* ----- Item list ----- */
+
+.item-table-card {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.item-search {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.item-search:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.2);
+}
+
+.item-table {
+    margin: 0;
+    font-size: 15px;
+}
+
+.item-table th {
+    font-weight: 600;
+    white-space: nowrap;
+    color: #ffffff;
+    background-color: #198754;
+}
+
+.item-table td {
+    color: #212529;
+    vertical-align: middle;
+}
+
+.item-table .item-empty {
     padding: 32px;
     text-align: center;
     font-style: italic;

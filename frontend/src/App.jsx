@@ -5,10 +5,11 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import DashboardPage from "./pages/DashboardPage";
 import CategoryPage from "./pages/CategoryPage";
+import ItemPage from "./pages/ItemPage";
 import ProfilePage from "./pages/ProfilePage";
 
 // Decides which page to show.
-// Before login: "login" or "signup".  After login: "dashboard", "categories" or "profile".
+// Before login: "login" or "signup".  After login: "dashboard", "categories", "items" or "profile".
 function App() {
   const [page, setPage] = useState("loading");
   const [admin, setAdmin] = useState(null);
@@ -56,6 +57,7 @@ function App() {
           <DashboardPage admin={admin} onNavigate={setPage} onLogout={handleLogout} />
         )}
         {page === "categories" && <CategoryPage />}
+        {page === "items" && <ItemPage />}
         {page === "profile" && (
           <ProfilePage onProfileUpdated={setAdmin} onSessionExpired={showLoginPage} />
         )}

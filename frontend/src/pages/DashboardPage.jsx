@@ -16,6 +16,9 @@ function DashboardPage({ admin, onNavigate, onLogout }) {
             <button type="button" className="btn dashboard-quick-categories" onClick={() => onNavigate("categories")}>
               Manage Categories
             </button>
+            <button type="button" className="btn dashboard-quick-items" onClick={() => onNavigate("items")}>
+              Manage Items
+            </button>
             <button type="button" className="btn dashboard-quick-profile" onClick={() => onNavigate("profile")}>
               My Profile
             </button>

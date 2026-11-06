@@ -4,6 +4,7 @@ import { useState } from "react";
 const NAV_LINKS = [
   { page: "dashboard", label: "Dashboard" },
   { page: "categories", label: "Categories" },
+  { page: "items", label: "Items" },
   { page: "profile", label: "Profile" },
 ];
 
