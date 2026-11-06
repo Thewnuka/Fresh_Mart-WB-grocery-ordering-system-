@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { callApi } from "./api";
+import AdminNavbar from "./AdminNavbar";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import WelcomePage from "./pages/WelcomePage";
+import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
 
-// Decides which page to show: "loading", "login", "signup", "welcome" or "profile"
+// Decides which page to show.
+// Before login: "login" or "signup".  After login: "dashboard" or "profile".
 function App() {
   const [page, setPage] = useState("loading");
   const [admin, setAdmin] = useState(null);
@@ -16,7 +18,7 @@ function App() {
     callApi("/auth/me").then((result) => {
       if (result.ok) {
         setAdmin(result.data);
-        setPage("welcome");
+        setPage("dashboard");
       } else {
         setPage("login");
       }
@@ -31,7 +33,7 @@ function App() {
 
   function handleLoginSuccess(loggedInAdmin) {
     setAdmin(loggedInAdmin);
-    setPage("welcome");
+    setPage("dashboard");
   }
 
   async function handleLogout() {
@@ -42,19 +44,24 @@ function App() {
   if (page === "loading") {
     return null;
   }
-  // Only a logged-in admin can see the Welcome and Profile pages
-  if (page === "welcome" && admin) {
-    return <WelcomePage admin={admin} onGoToProfile={() => setPage("profile")} onLogout={handleLogout} />;
-  }
-  if (page === "profile" && admin) {
+
+  // ---------- Pages for a logged-in admin ----------
+  if (admin) {
     return (
-      <ProfilePage
-        onGoToHome={() => setPage("welcome")}
-        onLogout={handleLogout}
-        onSessionExpired={showLoginPage}
-      />
+      <>
+        <AdminNavbar activePage={page} onNavigate={setPage} onLogout={handleLogout} />
+
+        {page === "dashboard" && (
+          <DashboardPage admin={admin} onNavigate={setPage} onLogout={handleLogout} />
+        )}
+        {page === "profile" && (
+          <ProfilePage onProfileUpdated={setAdmin} onSessionExpired={showLoginPage} />
+        )}
+      </>
     );
   }
+
+  // ---------- Pages before login ----------
   if (page === "signup") {
     return <SignUpPage onSignUpSuccess={showLoginPage} onGoToLogin={() => showLoginPage()} />;
   }

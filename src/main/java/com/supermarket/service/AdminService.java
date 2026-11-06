@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Business logic for admin sign up and login.
+ * Business logic for admin sign up, login and profile updates.
  */
 @Service
 public class AdminService {
@@ -64,7 +64,37 @@ public class AdminService {
         return adminRepository.findById(adminId).orElse(null);
     }
 
-    // ---------- Validation rules ----------
+    /**
+     * Updates the full name and email of the admin.
+     *
+     * @return an error message, or null if the profile was updated successfully
+     */
+    public String updateProfile(Long adminId, String fullName, String email) {
+        fullName = fullName.trim();
+        email = email.trim().toLowerCase();
+
+        if (fullName.isEmpty() || email.isEmpty()) {
+            return "Full name and email are required.";
+        }
+        String errorMessage = validateNameAndEmail(fullName, email);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+
+        // The email may belong to this admin, but not to anyone else
+        Admin emailOwner = adminRepository.findByEmail(email).orElse(null);
+        if (emailOwner != null && !emailOwner.getId().equals(adminId)) {
+            return "An account with this email already exists.";
+        }
+
+        Admin admin = findAdminById(adminId);
+        admin.setFullName(fullName);
+        admin.setEmail(email);
+        adminRepository.save(admin);
+        return null;
+    }
+
+    // ---------- Validation rules shared by sign up and profile ----------
 
     private String validateNameAndEmail(String fullName, String email) {
         if (fullName.length() > 100 || email.length() > 150) {

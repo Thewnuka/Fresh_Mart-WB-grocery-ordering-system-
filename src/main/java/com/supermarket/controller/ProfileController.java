@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +15,7 @@ import java.util.Map;
 
 /**
  * REST API for the logged-in admin's own profile.
- * The admin is always identified from the session, so an admin can only see their own account.
+ * The admin is always identified from the session, so an admin can only see and change their own account.
  */
 @RestController
 @RequestMapping("/api/profile")
@@ -33,6 +35,25 @@ public class ProfileController {
             return notLoggedIn();
         }
         return ResponseEntity.ok(profileOf(admin, "Profile loaded."));
+    }
+
+    /** PUT /api/profile  body: { fullName, email } */
+    @PutMapping
+    public ResponseEntity<Map<String, String>> updateProfile(@RequestBody Map<String, String> body, HttpSession session) {
+        Admin admin = getLoggedInAdmin(session);
+        if (admin == null) {
+            return notLoggedIn();
+        }
+
+        String errorMessage = adminService.updateProfile(admin.getId(),
+                body.getOrDefault("fullName", ""),
+                body.getOrDefault("email", ""));
+
+        if (errorMessage != null) {
+            return ResponseEntity.badRequest().body(Map.of("message", errorMessage));
+        }
+        Admin updatedAdmin = adminService.findAdminById(admin.getId());
+        return ResponseEntity.ok(profileOf(updatedAdmin, "Profile updated successfully."));
     }
 
     // ---------- Helper methods ----------
