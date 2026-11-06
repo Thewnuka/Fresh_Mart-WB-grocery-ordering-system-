@@ -303,7 +303,7 @@
 .dashboard-page {
     min-height: calc(100vh - 66px);
     padding: 32px 0 48px;
-    background-color: #e8f5ee;
+    background-color: #fdecee;
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -315,13 +315,13 @@
     margin: 0;
     font-size: 28px;
     font-weight: 700;
-    color: #146c43;
+    color: #a71d2a;
 }
 
 .dashboard-welcome {
     margin: 4px 0 0;
     font-size: 16px;
-    color: #6c757d;
+    color: #5c636a;
 }
 
 /* ----- Statistic card: Total Categories ----- */
@@ -329,7 +329,7 @@
 .dashboard-category-card {
     padding: 24px;
     background-color: #ffffff;
-    border-left: 6px solid #198754;
+    border-left: 6px solid #c82333;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -347,7 +347,7 @@
     margin: 4px 0 0;
     font-size: 40px;
     font-weight: 700;
-    color: #198754;
+    color: #c82333;
 }
 
 /* ----- Statistic card: Total Items ----- */
@@ -355,7 +355,7 @@
 .dashboard-item-card {
     padding: 24px;
     background-color: #ffffff;
-    border-left: 6px solid #20c997;
+    border-left: 6px solid #f06272;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
@@ -373,7 +373,7 @@
     margin: 4px 0 0;
     font-size: 40px;
     font-weight: 700;
-    color: #13a77b;
+    color: #dc3545;
 }
 
 /* ----- Quick Navigation ----- */
@@ -390,7 +390,7 @@
     margin-bottom: 16px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
 }
 
 .dashboard-quick-categories {
@@ -467,7 +467,7 @@
     margin-bottom: 16px;
     font-size: 20px;
     font-weight: 600;
-    color: #198754;
+    color: #c82333;
 }
 
 .dashboard-recent-table {
@@ -478,7 +478,7 @@
 .dashboard-recent-table th {
     font-weight: 600;
     color: #ffffff;
-    background-color: #198754;
+    background-color: #c82333;
 }
 
 .dashboard-recent-table td {
