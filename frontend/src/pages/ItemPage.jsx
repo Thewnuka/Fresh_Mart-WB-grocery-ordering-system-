@@ -8,7 +8,7 @@ const EDITABLE_ITEM_ID = 1;
 const DELETABLE_ITEM_ID = 2;
 
 // Item Management: shows the items from the database (with images), lets the admin search them,
-// edit the Samba Rice sample item and delete the Nadu Rice sample item
+// add new items, edit the Samba Rice sample item and delete the Nadu Rice sample item
 function ItemPage({ onSessionExpired }) {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -16,13 +16,16 @@ function ItemPage({ onSessionExpired }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Edit form
-  const [editingItem, setEditingItem] = useState(null); // null = form closed
+  // Add / Edit form
+  const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState(null); // null = adding a new item
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [imageFile, setImageFile] = useState(null);       // image chosen by the admin (add only)
+  const [imagePreview, setImagePreview] = useState("");   // what the form shows as the image
 
   useEffect(() => {
     loadItems();
@@ -44,42 +47,61 @@ function ItemPage({ onSessionExpired }) {
     }
   }
 
-  // Fills the form with the item's current details
-  function openEditForm(item) {
+  function showResult(result) {
+    setSuccessMessage(result.ok ? result.data.message : "");
+    setErrorMessage(result.ok ? "" : result.data.message);
+  }
+
+  // Opens the form; item is null when adding a new item
+  function openForm(item) {
     setEditingItem(item);
-    setName(item.name);
-    setDescription(item.description || "");
-    setPrice(String(item.price));
-    setStockQuantity(String(item.stockQuantity));
-    setCategoryId(String(item.category.id));
+    setName(item ? item.name : "");
+    setDescription(item ? item.description || "" : "");
+    setPrice(item ? String(item.price) : "");
+    setStockQuantity(item ? String(item.stockQuantity) : "");
+    setCategoryId(item ? String(item.category.id) : "");
+    setImageFile(null);
+    setImagePreview(itemImageUrl(item ? item.imageName : null));
+    setShowForm(true);
     setSuccessMessage("");
     setErrorMessage("");
     window.scrollTo(0, 0);
   }
 
+  function handleImageChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImagePreview(URL.createObjectURL(file)); // show the chosen picture before uploading
+    }
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    // FormData sends the fields as a normal HTML form would
+    // FormData lets us send the text fields and the image file in one request
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
     formData.append("price", price);
     formData.append("stockQuantity", stockQuantity);
     formData.append("categoryId", categoryId);
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
-    const result = await callApi("/items/" + editingItem.id, "PUT", formData);
+    const result = editingItem === null
+      ? await callApi("/items", "POST", formData)
+      : await callApi("/items/" + editingItem.id, "PUT", formData);
 
-    if (result.ok) {
-      setSuccessMessage(result.data.message);
-      setErrorMessage("");
-      setEditingItem(null);
-      loadItems();
-    } else if (result.status === 401) {
+    if (result.status === 401) {
       onSessionExpired(result.data.message);
-    } else {
-      setSuccessMessage("");
-      setErrorMessage(result.data.message);
+      return;
+    }
+    showResult(result);
+    if (result.ok) {
+      setShowForm(false);
+      loadItems();
     }
   }
 
@@ -90,16 +112,14 @@ function ItemPage({ onSessionExpired }) {
     }
     const result = await callApi("/items/" + item.id, "DELETE");
 
-    if (result.ok) {
-      setSuccessMessage(result.data.message);
-      setErrorMessage("");
-      setEditingItem(null);
-      loadItems();
-    } else if (result.status === 401) {
+    if (result.status === 401) {
       onSessionExpired(result.data.message);
-    } else {
-      setSuccessMessage("");
-      setErrorMessage(result.data.message);
+      return;
+    }
+    showResult(result);
+    if (result.ok) {
+      setShowForm(false);
+      loadItems();
     }
   }
 
@@ -113,15 +133,16 @@ function ItemPage({ onSessionExpired }) {
 
         <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
           <h1 className="item-heading">Item Management</h1>
+          <button type="button" className="btn item-add-button" onClick={() => openForm(null)}>+ Add New Item</button>
         </div>
 
         {successMessage && <div className="alert alert-success item-success">{successMessage}</div>}
         {errorMessage && <div className="alert alert-danger item-error">{errorMessage}</div>}
 
-        {/* ---------- Edit form ---------- */}
-        {editingItem && (
+        {/* ---------- Add / Edit form ---------- */}
+        {showForm && (
           <div className="item-form-card">
-            <h2 className="item-form-title">Edit Item</h2>
+            <h2 className="item-form-title">{editingItem === null ? "Add New Item" : "Edit Item"}</h2>
             {/* noValidate: all checks are done by the backend, so its clear messages are shown */}
             <form onSubmit={handleSubmit} noValidate>
               <div className="row g-4">
@@ -162,15 +183,21 @@ function ItemPage({ onSessionExpired }) {
                 </div>
 
                 <div className="col-md-4">
-                  <span className="form-label item-label d-block">Image</span>
-                  <img src={itemImageUrl(editingItem.imageName)} alt={editingItem.name} className="item-form-image"
-                       onError={showPlaceholderImage} />
+                  <label htmlFor="itemImage" className="form-label item-label">Image</label>
+                  <img src={imagePreview} alt="Item preview" className="item-form-image" onError={showPlaceholderImage} />
+                  {editingItem === null && (
+                    <>
+                      <input type="file" id="itemImage" className="form-control item-file-input"
+                             accept=".jpg,.jpeg,.png,.gif,.webp" onChange={handleImageChange} />
+                      <p className="item-image-hint">JPG, PNG, GIF or WEBP, up to 5 MB. Optional.</p>
+                    </>
+                  )}
                 </div>
               </div>
 
               <div className="mt-4">
-                <button type="submit" className="btn item-save-button">Save Changes</button>
-                <button type="button" className="btn item-cancel-button" onClick={() => setEditingItem(null)}>Cancel</button>
+                <button type="submit" className="btn item-save-button">{editingItem === null ? "Add Item" : "Save Changes"}</button>
+                <button type="button" className="btn item-cancel-button" onClick={() => setShowForm(false)}>Cancel</button>
               </div>
             </form>
           </div>
@@ -222,7 +249,7 @@ function ItemPage({ onSessionExpired }) {
                       <td>{item.stockQuantity}</td>
                       <td className="text-end text-nowrap">
                         {item.id === EDITABLE_ITEM_ID && (
-                          <button type="button" className="btn item-edit-button" onClick={() => openEditForm(item)}>Edit</button>
+                          <button type="button" className="btn item-edit-button" onClick={() => openForm(item)}>Edit</button>
                         )}
                         {item.id === DELETABLE_ITEM_ID && (
                           <button type="button" className="btn item-delete-button" onClick={() => handleDelete(item)}>Delete</button>

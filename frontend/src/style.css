@@ -588,6 +588,20 @@
     color: #146c43;
 }
 
+.item-add-button {
+    padding: 10px 20px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #20c997;
+    border: none;
+    border-radius: 8px;
+}
+
+.item-add-button:hover {
+    color: #ffffff;
+    background-color: #13a77b;
+}
+
 .item-success {
     padding: 10px 14px;
     font-size: 15px;
@@ -598,7 +612,7 @@
     font-size: 15px;
 }
 
-/* ----- Edit item form ----- */
+/* ----- Add / Edit item form ----- */
 
 .item-form-card {
     padding: 24px;
@@ -664,6 +678,17 @@
     object-fit: cover;
     border: 1px solid #dee2e6;
     border-radius: 10px;
+}
+
+.item-file-input {
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.item-image-hint {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: #6c757d;
 }
 
 .item-save-button {

@@ -11,6 +11,11 @@ frontend/node_modules/
 !.env.example
 local.properties
 
+# Images uploaded through the app (the sample .svg images are still committed)
+item-images/*
+!item-images/*.svg
+!item-images/.gitkeep
+
 # Local configuration
 application-local.properties
 application-prod.properties
