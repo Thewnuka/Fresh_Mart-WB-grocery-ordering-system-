@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { callApi, formatDate } from "../api";
+import PasswordInput from "../PasswordInput";
 
-// Shows the logged-in admin's profile and lets them edit their name and email
+// Shows the logged-in admin's profile, lets them edit their name and email and change their password
 function ProfilePage({ onProfileUpdated, onSessionExpired }) {
   // Saved profile from MySQL (shown in the summary card)
   const [profile, setProfile] = useState(null);
@@ -13,6 +14,13 @@ function ProfilePage({ onProfileUpdated, onSessionExpired }) {
   const [email, setEmail] = useState("");
   const [profileSuccess, setProfileSuccess] = useState("");
   const [profileError, setProfileError] = useState("");
+
+  // Change Password form
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordSuccess, setPasswordSuccess] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   // Load the profile from the backend when the page opens
   useEffect(() => {
@@ -62,6 +70,29 @@ function ProfilePage({ onProfileUpdated, onSessionExpired }) {
       onSessionExpired(result.data.message);
     } else {
       setProfileError(result.data.message);
+    }
+  }
+
+  // Empties the three password fields
+  function clearPasswordFields() {
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  }
+
+  async function handlePasswordSubmit(event) {
+    event.preventDefault();
+    setPasswordSuccess("");
+    setPasswordError("");
+    const result = await callApi("/profile/password", "PUT", { currentPassword, newPassword, confirmPassword });
+
+    if (result.ok) {
+      setPasswordSuccess(result.data.message);
+      clearPasswordFields();
+    } else if (result.status === 401) {
+      onSessionExpired(result.data.message);
+    } else {
+      setPasswordError(result.data.message);
     }
   }
 
@@ -123,6 +154,42 @@ function ProfilePage({ onProfileUpdated, onSessionExpired }) {
                   ) : (
                     <button type="button" className="btn profile-edit-button" onClick={startEditing}>Edit Profile</button>
                   )}
+                </form>
+              </div>
+
+              {/* ---------- Change Password ---------- */}
+              <div className="profile-password-card">
+                <h2 className="profile-password-title">Change Password</h2>
+
+                {passwordSuccess && <div className="alert alert-success profile-password-success">{passwordSuccess}</div>}
+                {passwordError && <div className="alert alert-danger profile-password-error">{passwordError}</div>}
+
+                {/* noValidate: all checks are done by the backend, so its clear messages are shown */}
+                <form onSubmit={handlePasswordSubmit} noValidate>
+                  <div className="mb-3">
+                    <label htmlFor="currentPassword" className="form-label profile-password-label">Current Password</label>
+                    <PasswordInput id="currentPassword" placeholder="Enter your current password"
+                                   value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
+                                   inputClassName="profile-password-input" buttonClassName="profile-eye-button" />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="newPassword" className="form-label profile-password-label">New Password</label>
+                    <PasswordInput id="newPassword" placeholder="At least 6 characters"
+                                   value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+                                   inputClassName="profile-password-input" buttonClassName="profile-eye-button" />
+                  </div>
+
+                  <div className="mb-4">
+                    <label htmlFor="confirmNewPassword" className="form-label profile-password-label">Confirm New Password</label>
+                    <PasswordInput id="confirmNewPassword" placeholder="Re-enter the new password"
+                                   value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                                   inputClassName="profile-password-input" buttonClassName="profile-eye-button" />
+                  </div>
+
+                  <button type="submit" className="btn profile-password-button">Change Password</button>
+                  <button type="button" className="btn profile-password-clear-button"
+                          onClick={() => { clearPasswordFields(); setPasswordSuccess(""); setPasswordError(""); }}>Clear</button>
                 </form>
               </div>
             </div>

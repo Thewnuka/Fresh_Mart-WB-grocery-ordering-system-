@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Business logic for admin sign up, login and profile updates.
+ * Business logic for admin sign up, login, profile updates and password changes.
  */
 @Service
 public class AdminService {
@@ -90,6 +90,38 @@ public class AdminService {
         Admin admin = findAdminById(adminId);
         admin.setFullName(fullName);
         admin.setEmail(email);
+        adminRepository.save(admin);
+        return null;
+    }
+
+    /**
+     * Checks the current password and saves the new password as a BCrypt hash.
+     * The same rules as sign up are used for the new password (at least 6 characters, must match the confirmation).
+     *
+     * @return an error message, or null if the password was changed successfully
+     */
+    public String changePassword(Long adminId, String currentPassword, String newPassword, String confirmPassword) {
+        currentPassword = (currentPassword == null) ? "" : currentPassword;
+        newPassword = (newPassword == null) ? "" : newPassword;
+        confirmPassword = (confirmPassword == null) ? "" : confirmPassword;
+
+        if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            return "All password fields are required.";
+        }
+
+        Admin admin = findAdminById(adminId);
+        if (!passwordEncoder.matches(currentPassword, admin.getPassword())) {
+            return "Current password is incorrect.";
+        }
+        String errorMessage = validateNewPassword(newPassword, confirmPassword);
+        if (errorMessage != null) {
+            return errorMessage;
+        }
+        if (passwordEncoder.matches(newPassword, admin.getPassword())) {
+            return "New password must be different from the current password.";
+        }
+
+        admin.setPassword(passwordEncoder.encode(newPassword));
         adminRepository.save(admin);
         return null;
     }

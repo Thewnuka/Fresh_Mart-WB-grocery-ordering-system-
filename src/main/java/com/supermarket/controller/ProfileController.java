@@ -56,6 +56,26 @@ public class ProfileController {
         return ResponseEntity.ok(profileOf(updatedAdmin, "Profile updated successfully."));
     }
 
+    /** PUT /api/profile/password  body: { currentPassword, newPassword, confirmPassword } */
+    @PutMapping("/password")
+    public ResponseEntity<Map<String, String>> changePassword(@RequestBody Map<String, String> body, HttpSession session) {
+        Admin admin = getLoggedInAdmin(session);
+        if (admin == null) {
+            return notLoggedIn();
+        }
+
+        String errorMessage = adminService.changePassword(admin.getId(),
+                body.getOrDefault("currentPassword", ""),
+                body.getOrDefault("newPassword", ""),
+                body.getOrDefault("confirmPassword", ""));
+
+        if (errorMessage != null) {
+            return ResponseEntity.badRequest().body(Map.of("message", errorMessage));
+        }
+        // The admin stays logged in: the session keeps the same admin id
+        return ResponseEntity.ok(Map.of("message", "Password changed successfully."));
+    }
+
     // ---------- Helper methods ----------
 
     /** Returns the admin whose id is in the session, or null if nobody is logged in. */

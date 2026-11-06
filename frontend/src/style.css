@@ -1152,3 +1152,95 @@
     color: #212529;
     background-color: #f1f3f5;
 }
+
+/* ----- Change Password card ----- */
+
+.profile-password-card {
+    padding: 28px 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-password-title {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #c82333;
+    border-bottom: 2px solid #fdecee;
+}
+
+.profile-password-success {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-password-error {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-password-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.profile-password-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-password-input:focus {
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
+}
+
+/* Hide Microsoft Edge's own built-in eye icon; these fields already have their own show/hide button */
+.profile-password-input::-ms-reveal {
+    display: none;
+}
+
+.profile-eye-button {
+    padding: 0 12px;
+    color: #c82333;
+    background-color: #fdecee;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-eye-button:hover {
+    color: #a71d2a;
+    background-color: #f8d7da;
+}
+
+.profile-password-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #c82333;
+    border: none;
+    border-radius: 8px;
+}
+
+.profile-password-button:hover {
+    color: #ffffff;
+    background-color: #a71d2a;
+}
+
+.profile-password-clear-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-password-clear-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
+}
