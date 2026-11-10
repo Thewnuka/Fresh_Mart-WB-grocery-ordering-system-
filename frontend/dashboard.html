@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <title>FreshMart Admin - Dashboard</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- ---------- Navigation bar ---------- -->
+    <nav class="navbar navbar-expand-lg admin-navbar" data-bs-theme="dark">
+        <div class="container">
+            <a href="dashboard.html" class="navbar-brand admin-navbar-brand">
+                <img src="/logo.svg" alt="" class="admin-navbar-logo"> FreshMart
+            </a>
+            <button type="button" id="navbar-toggler" class="navbar-toggler admin-navbar-toggler" aria-label="Toggle menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link admin-navbar-link admin-navbar-link-active">Dashboard</a></li>
+                    <li class="nav-item"><a href="categories.html" class="nav-link admin-navbar-link">Categories</a></li>
+                    <li class="nav-item"><a href="items.html" class="nav-link admin-navbar-link">Items</a></li>
+                    <!-- Profile is still in the old React app until Phase 3 -->
+                    <li class="nav-item"><a href="/" class="nav-link admin-navbar-link">Profile</a></li>
+                    <li class="nav-item"><span id="navbar-admin-name" class="admin-navbar-user"></span></li>
+                    <li class="nav-item">
+                        <button type="button" id="navbar-logout-button" class="btn admin-navbar-logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-page">
+        <div class="container">
+
+            <div class="dashboard-header">
+                <h1 class="dashboard-heading">Dashboard</h1>
+                <p class="dashboard-welcome">Welcome back, <span id="dashboard-admin-name"></span>!</p>
+            </div>
+
+            <p id="dashboard-loading" class="dashboard-loading">Loading dashboard...</p>
+            <div id="dashboard-error" class="alert alert-danger dashboard-error" hidden></div>
+
+            <!-- ---------- Statistic cards (shown once the data is loaded) ---------- -->
+            <div id="dashboard-stats" class="row g-4 mb-4" hidden>
+                <div class="col-sm-6">
+                    <div class="dashboard-category-card">
+                        <p class="dashboard-category-label">Total Categories</p>
+                        <p id="total-categories" class="dashboard-category-count"></p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dashboard-item-card">
+                        <p class="dashboard-item-label">Total Items</p>
+                        <p id="total-items" class="dashboard-item-count"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---------- Quick navigation ---------- -->
+            <div class="dashboard-quick-card">
+                <h2 class="dashboard-quick-title">Quick Navigation</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="categories.html" class="btn dashboard-quick-categories">Manage Categories</a>
+                    <a href="items.html" class="btn dashboard-quick-items">Manage Items</a>
+                    <!-- Profile is still in the old React app until Phase 3 -->
+                    <a href="/" class="btn dashboard-quick-profile">My Profile</a>
+                    <button type="button" id="dashboard-logout-button" class="btn dashboard-quick-logout">Logout</button>
+                </div>
+            </div>
+
+            <!-- ---------- Recently added items (shown once the data is loaded) ---------- -->
+            <div id="dashboard-recent" class="dashboard-recent-card" hidden>
+                <h2 class="dashboard-recent-title">Recently Added Items</h2>
+                <div class="table-responsive">
+                    <table class="table dashboard-recent-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Item Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Added On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-items-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -9,13 +9,16 @@ export default defineConfig({
     strictPort: true,
   },
   // Pages included in "npm run build":
-  // index.html is the old React app; login.html and register.html are the new plain HTML pages
+  // index.html is the old React app; the other pages are the new plain HTML pages
   build: {
     rollupOptions: {
       input: {
         main: "index.html",
         login: "login.html",
         register: "register.html",
+        dashboard: "dashboard.html",
+        categories: "categories.html",
+        items: "items.html",
       },
     },
   },

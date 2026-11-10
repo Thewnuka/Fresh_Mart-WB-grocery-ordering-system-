@@ -6,9 +6,8 @@ import { showMessage, hideMessage, setButtonLoading, setupPasswordToggles } from
 // Same email rule as the backend (AdminService)
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-// Until the dashboard is rebuilt in plain HTML, a logged-in admin goes to the
-// existing React app at "/", which opens its dashboard.
-const PAGE_AFTER_LOGIN = "/";
+// Page opened after a successful login
+const PAGE_AFTER_LOGIN = "dashboard.html";
 
 setupPasswordToggles();
 

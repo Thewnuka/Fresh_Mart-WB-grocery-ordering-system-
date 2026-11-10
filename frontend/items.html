@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <title>FreshMart Admin - Items</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- ---------- Navigation bar ---------- -->
+    <nav class="navbar navbar-expand-lg admin-navbar" data-bs-theme="dark">
+        <div class="container">
+            <a href="dashboard.html" class="navbar-brand admin-navbar-brand">
+                <img src="/logo.svg" alt="" class="admin-navbar-logo"> FreshMart
+            </a>
+            <button type="button" id="navbar-toggler" class="navbar-toggler admin-navbar-toggler" aria-label="Toggle menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link admin-navbar-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="categories.html" class="nav-link admin-navbar-link">Categories</a></li>
+                    <li class="nav-item"><a href="items.html" class="nav-link admin-navbar-link admin-navbar-link-active">Items</a></li>
+                    <!-- Profile is still in the old React app until Phase 3 -->
+                    <li class="nav-item"><a href="/" class="nav-link admin-navbar-link">Profile</a></li>
+                    <li class="nav-item"><span id="navbar-admin-name" class="admin-navbar-user"></span></li>
+                    <li class="nav-item">
+                        <button type="button" id="navbar-logout-button" class="btn admin-navbar-logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="item-page">
+        <div class="container">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+                <h1 class="item-heading">Item Management</h1>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" id="item-assign-button" class="btn item-assign-button">Assign Category</button>
+                    <button type="button" id="item-add-button" class="btn item-add-button">+ Add New Item</button>
+                </div>
+            </div>
+
+            <div id="item-success" class="alert alert-success item-success" hidden></div>
+            <div id="item-error" class="alert alert-danger item-error" hidden></div>
+
+            <!-- ---------- Add / Edit form (hidden until Add or Edit is clicked) ---------- -->
+            <div id="item-form-card" class="item-form-card" hidden>
+                <h2 id="item-form-title" class="item-form-title">Add New Item</h2>
+                <form id="item-form" novalidate>
+                    <div class="row g-4">
+                        <div class="col-md-8">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label for="itemName" class="form-label item-label">Item Name</label>
+                                    <input type="text" id="itemName" class="form-control item-input" maxlength="100"
+                                           placeholder="e.g. Fresh Milk">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="itemCategory" class="form-label item-label">Category</label>
+                                    <select id="itemCategory" class="form-select item-select">
+                                        <option value="">-- Select a category --</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="itemPrice" class="form-label item-label">Price (LKR)</label>
+                                    <input type="number" id="itemPrice" class="form-control item-input" step="0.01"
+                                           placeholder="e.g. 250.00">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="itemStock" class="form-label item-label">Stock Quantity</label>
+                                    <input type="number" id="itemStock" class="form-control item-input" step="1"
+                                           placeholder="e.g. 50">
+                                </div>
+                                <div class="col-12">
+                                    <label for="itemDescription" class="form-label item-label">Description</label>
+                                    <textarea id="itemDescription" class="form-control item-textarea" rows="3" maxlength="500"
+                                              placeholder="Short description of the item"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="itemImage" class="form-label item-label">Image</label>
+                            <img id="item-form-image" src="/no-image.svg" alt="Item preview" class="item-form-image">
+                            <input type="file" id="itemImage" class="form-control item-file-input"
+                                   accept=".jpg,.jpeg,.png,.gif,.webp">
+                            <p id="item-image-hint" class="item-image-hint"></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" id="item-save-button" class="btn item-save-button">Add Item</button>
+                        <button type="button" id="item-cancel-button" class="btn item-cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ---------- Assign Category form (hidden until Assign Category is clicked) ---------- -->
+            <div id="item-assign-card" class="item-assign-card" hidden>
+                <h2 class="item-assign-title">Assign Item to Category</h2>
+                <form id="item-assign-form" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="assignItem" class="form-label item-assign-label">Item</label>
+                            <select id="assignItem" class="form-select item-assign-select"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="assignCategory" class="form-label item-assign-label">New Category</label>
+                            <select id="assignCategory" class="form-select item-assign-select"></select>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" id="item-assign-save-button" class="btn item-assign-save-button">Save Assignment</button>
+                        <button type="button" id="item-assign-cancel-button" class="btn item-assign-cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ---------- Item list ---------- -->
+            <div class="item-table-card">
+                <div class="row g-2 mb-3">
+                    <div class="col-md-8">
+                        <input type="text" id="item-search" class="form-control item-search" placeholder="Search items by name...">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table item-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>ID</th>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="item-table-body">
+                            <tr><td colspan="7" class="item-empty">Loading items...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ---------- View details window ---------- -->
+            <div id="item-view-overlay" class="item-view-overlay" hidden>
+                <div class="item-view-modal">
+                    <h2 id="item-view-title" class="item-view-title"></h2>
+                    <img id="item-view-image" src="/no-image.svg" alt="" class="item-view-image">
+                    <dl class="item-view-details">
+                        <dt>Item ID</dt><dd id="view-item-id"></dd>
+                        <dt>Name</dt><dd id="view-item-name"></dd>
+                        <dt>Description</dt><dd id="view-item-description"></dd>
+                        <dt>Category</dt><dd id="view-item-category"></dd>
+                        <dt>Price</dt><dd id="view-item-price"></dd>
+                        <dt>Stock Quantity</dt><dd id="view-item-stock"></dd>
+                        <dt>Added On</dt><dd id="view-item-created"></dd>
+                    </dl>
+                    <button type="button" id="item-view-close-button" class="btn item-view-close-button">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="/js/items.js"></script>
+</body>
+</html>

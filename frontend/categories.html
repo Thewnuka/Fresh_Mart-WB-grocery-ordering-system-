@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <title>FreshMart Admin - Categories</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- ---------- Navigation bar ---------- -->
+    <nav class="navbar navbar-expand-lg admin-navbar" data-bs-theme="dark">
+        <div class="container">
+            <a href="dashboard.html" class="navbar-brand admin-navbar-brand">
+                <img src="/logo.svg" alt="" class="admin-navbar-logo"> FreshMart
+            </a>
+            <button type="button" id="navbar-toggler" class="navbar-toggler admin-navbar-toggler" aria-label="Toggle menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link admin-navbar-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="categories.html" class="nav-link admin-navbar-link admin-navbar-link-active">Categories</a></li>
+                    <li class="nav-item"><a href="items.html" class="nav-link admin-navbar-link">Items</a></li>
+                    <!-- Profile is still in the old React app until Phase 3 -->
+                    <li class="nav-item"><a href="/" class="nav-link admin-navbar-link">Profile</a></li>
+                    <li class="nav-item"><span id="navbar-admin-name" class="admin-navbar-user"></span></li>
+                    <li class="nav-item">
+                        <button type="button" id="navbar-logout-button" class="btn admin-navbar-logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="category-page">
+        <div class="container">
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+                <h1 class="category-heading">Category Management</h1>
+                <button type="button" id="category-add-button" class="btn category-add-button">+ Add New Category</button>
+            </div>
+
+            <div id="category-success" class="alert alert-success category-success" hidden></div>
+            <div id="category-error" class="alert alert-danger category-error" hidden></div>
+
+            <!-- ---------- Add / Edit form (hidden until Add or Edit is clicked) ---------- -->
+            <div id="category-form-card" class="category-form-card" hidden>
+                <h2 id="category-form-title" class="category-form-title">Add New Category</h2>
+                <form id="category-form" novalidate>
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label category-label">Category Name</label>
+                        <input type="text" id="categoryName" class="form-control category-input" maxlength="100"
+                               placeholder="e.g. Dairy Products">
+                    </div>
+                    <div class="mb-4">
+                        <label for="categoryDescription" class="form-label category-label">Description</label>
+                        <textarea id="categoryDescription" class="form-control category-textarea" rows="3" maxlength="255"
+                                  placeholder="Short description of this category"></textarea>
+                    </div>
+                    <button type="submit" id="category-save-button" class="btn category-save-button">Add Category</button>
+                    <button type="button" id="category-cancel-button" class="btn category-cancel-button">Cancel</button>
+                </form>
+            </div>
+
+            <!-- ---------- Category list ---------- -->
+            <div class="category-table-card">
+                <input type="text" id="category-search" class="form-control category-search"
+                       placeholder="Search categories by name...">
+
+                <div class="table-responsive">
+                    <table class="table category-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Category Name</th>
+                                <th>Description</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category-table-body">
+                            <tr><td colspan="4" class="category-empty">Loading categories...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ---------- View details window ---------- -->
+            <div id="category-view-overlay" class="category-view-overlay" hidden>
+                <div class="category-view-modal">
+                    <h2 id="category-view-title" class="category-view-title"></h2>
+                    <dl class="category-view-details">
+                        <dt>Category ID</dt><dd id="view-category-id"></dd>
+                        <dt>Name</dt><dd id="view-category-name"></dd>
+                        <dt>Description</dt><dd id="view-category-description"></dd>
+                        <dt>Items in this category</dt><dd id="view-category-item-count"></dd>
+                        <dt>Created</dt><dd id="view-category-created"></dd>
+                    </dl>
+                    <button type="button" id="category-view-close-button" class="btn category-view-close-button">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="/js/categories.js"></script>
+</body>
+</html>

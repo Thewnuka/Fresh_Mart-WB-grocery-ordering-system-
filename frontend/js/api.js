@@ -22,3 +22,8 @@ export async function callApi(path, method = "GET", body = null) {
         return { ok: false, status: 0, data: { message: "Cannot connect to the server. Is the backend running?" } };
     }
 }
+
+// Address of an item's image, or the "No Image" placeholder when the item has no image
+export function itemImageUrl(imageName) {
+    return imageName ? SERVER_URL + "/item-images/" + imageName : "/no-image.svg";
+}
