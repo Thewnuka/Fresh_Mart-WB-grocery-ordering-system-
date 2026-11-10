@@ -1227,6 +1227,265 @@
     background-color: #a71d2a;
 }
 
+
+/* ======================= PROFILE PAGE ======================= */
+
+.profile-page {
+    min-height: calc(100vh - 66px);
+    padding: 32px 0 48px;
+    background-color: #fdecee;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.profile-heading {
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #a71d2a;
+}
+
+.profile-loading {
+    font-size: 16px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.profile-load-error {
+    padding: 10px 14px;
+    font-size: 15px;
+}
+
+/* ----- Summary card (View Profile) ----- */
+
+.profile-summary-card {
+    padding: 32px 24px;
+    background-color: #ffffff;
+    border-top: 5px solid #c82333;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-avatar {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 16px;
+    line-height: 88px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #c82333;
+    border-radius: 50%;
+}
+
+.profile-summary-name {
+    margin-bottom: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.profile-summary-email {
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #6c757d;
+    word-break: break-all;
+}
+
+.profile-summary-date {
+    margin: 0;
+    font-size: 13px;
+    color: #c82333;
+}
+
+/* ----- Personal Information card ----- */
+
+.profile-info-card {
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-info-title {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #c82333;
+    border-bottom: 2px solid #fdecee;
+}
+
+.profile-info-success {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-info-error {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-info-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.profile-info-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-info-input:focus {
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
+}
+
+.profile-info-readonly {
+    padding: 10px 12px;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.profile-edit-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #c82333;
+    background-color: #ffffff;
+    border: 2px solid #c82333;
+    border-radius: 8px;
+}
+
+.profile-edit-button:hover {
+    color: #ffffff;
+    background-color: #c82333;
+}
+
+.profile-save-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #c82333;
+    border: none;
+    border-radius: 8px;
+}
+
+.profile-save-button:hover {
+    color: #ffffff;
+    background-color: #a71d2a;
+}
+
+.profile-cancel-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-cancel-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
+}
+
+/* ----- Change Password card ----- */
+
+.profile-password-card {
+    padding: 28px 24px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.profile-password-title {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #c82333;
+    border-bottom: 2px solid #fdecee;
+}
+
+.profile-password-success {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-password-error {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.profile-password-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.profile-password-input {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-password-input:focus {
+    border-color: #c82333;
+    box-shadow: 0 0 0 3px rgba(200, 35, 51, 0.2);
+}
+
+/* Hide Microsoft Edge's own built-in eye icon; these fields already have their own show/hide button */
+.profile-password-input::-ms-reveal {
+    display: none;
+}
+
+.profile-eye-button {
+    padding: 0 12px;
+    color: #c82333;
+    background-color: #fdecee;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-eye-button:hover {
+    color: #a71d2a;
+    background-color: #f8d7da;
+}
+
+.profile-password-button {
+    padding: 10px 24px;
+    margin-right: 8px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #c82333;
+    border: none;
+    border-radius: 8px;
+}
+
+.profile-password-button:hover {
+    color: #ffffff;
+    background-color: #a71d2a;
+}
+
+.profile-password-clear-button {
+    padding: 10px 24px;
+    font-weight: 600;
+    color: #6c757d;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+.profile-password-clear-button:hover {
+    color: #212529;
+    background-color: #f1f3f5;
+}
+
 /* ----- Added for the HTML pages ----- */
 
 /* Name of the logged-in admin in the navigation bar */

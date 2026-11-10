@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="/logo.svg">
     <title>FreshMart Admin</title>
+    <!-- Opening http://localhost:5173/ goes straight to the Login page.
+         The Login page itself opens the Dashboard when the admin is already logged in. -->
+    <meta http-equiv="refresh" content="0; url=login.html">
 </head>
 <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <p>Opening FreshMart... <a href="login.html">Click here if nothing happens.</a></p>
 </body>
 </html>

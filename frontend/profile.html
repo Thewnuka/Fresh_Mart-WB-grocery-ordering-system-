@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <title>FreshMart Admin - My Profile</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- ---------- Navigation bar ---------- -->
+    <nav class="navbar navbar-expand-lg admin-navbar" data-bs-theme="dark">
+        <div class="container">
+            <a href="dashboard.html" class="navbar-brand admin-navbar-brand">
+                <img src="/logo.svg" alt="" class="admin-navbar-logo"> FreshMart
+            </a>
+            <button type="button" id="navbar-toggler" class="navbar-toggler admin-navbar-toggler" aria-label="Toggle menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a href="dashboard.html" class="nav-link admin-navbar-link">Dashboard</a></li>
+                    <li class="nav-item"><a href="categories.html" class="nav-link admin-navbar-link">Categories</a></li>
+                    <li class="nav-item"><a href="items.html" class="nav-link admin-navbar-link">Items</a></li>
+                    <li class="nav-item"><a href="profile.html" class="nav-link admin-navbar-link admin-navbar-link-active">Profile</a></li>
+                    <li class="nav-item"><span id="navbar-admin-name" class="admin-navbar-user"></span></li>
+                    <li class="nav-item">
+                        <button type="button" id="navbar-logout-button" class="btn admin-navbar-logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-page">
+        <div class="container">
+            <h1 class="profile-heading">My Profile</h1>
+
+            <p id="profile-loading" class="profile-loading">Loading profile...</p>
+            <div id="profile-load-error" class="alert alert-danger profile-load-error" hidden></div>
+
+            <!-- Shown once the profile is loaded -->
+            <div id="profile-content" class="row g-4" hidden>
+
+                <!-- ---------- Summary card ---------- -->
+                <div class="col-lg-4">
+                    <div class="profile-summary-card text-center">
+                        <div id="profile-avatar" class="profile-avatar"></div>
+                        <h2 id="profile-summary-name" class="profile-summary-name"></h2>
+                        <p id="profile-summary-email" class="profile-summary-email"></p>
+                        <p id="profile-summary-date" class="profile-summary-date"></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <!-- ---------- Personal Information (view / edit) ---------- -->
+                    <div class="profile-info-card">
+                        <h2 class="profile-info-title">Personal Information</h2>
+
+                        <div id="profile-info-success" class="alert alert-success profile-info-success" hidden></div>
+                        <div id="profile-info-error" class="alert alert-danger profile-info-error" hidden></div>
+
+                        <!-- novalidate: our own JavaScript checks show the error messages -->
+                        <form id="profile-form" novalidate>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label profile-info-label">Full Name</label>
+                                <input type="text" id="fullName" maxlength="100" readonly
+                                       class="form-control profile-info-readonly">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label profile-info-label">Email Address</label>
+                                <input type="email" id="email" maxlength="150" readonly
+                                       class="form-control profile-info-readonly">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="createdAt" class="form-label profile-info-label">Account Created</label>
+                                <input type="text" id="createdAt" readonly class="form-control profile-info-readonly">
+                            </div>
+
+                            <!-- Shown while viewing -->
+                            <button type="button" id="profile-edit-button" class="btn profile-edit-button">Edit Profile</button>
+                            <!-- Shown while editing -->
+                            <div id="profile-edit-buttons" hidden>
+                                <button type="submit" id="profile-save-button" class="btn profile-save-button">Save Changes</button>
+                                <button type="button" id="profile-cancel-button" class="btn profile-cancel-button">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- ---------- Change Password ---------- -->
+                    <div class="profile-password-card">
+                        <h2 class="profile-password-title">Change Password</h2>
+
+                        <div id="profile-password-success" class="alert alert-success profile-password-success" hidden></div>
+                        <div id="profile-password-error" class="alert alert-danger profile-password-error" hidden></div>
+
+                        <!-- novalidate: our own JavaScript checks show the error messages -->
+                        <form id="password-form" novalidate>
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label profile-password-label">Current Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="currentPassword" class="form-control profile-password-input"
+                                           placeholder="Enter your current password" autocomplete="current-password">
+                                    <button type="button" class="btn profile-eye-button" data-password-for="currentPassword"
+                                            aria-label="Show password">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                            <line x1="3" y1="3" x2="21" y2="21" style="display: none" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label profile-password-label">New Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="newPassword" class="form-control profile-password-input"
+                                           placeholder="At least 6 characters" autocomplete="new-password">
+                                    <button type="button" class="btn profile-eye-button" data-password-for="newPassword"
+                                            aria-label="Show password">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                            <line x1="3" y1="3" x2="21" y2="21" style="display: none" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="confirmNewPassword" class="form-label profile-password-label">Confirm New Password</label>
+                                <div class="input-group">
+                                    <input type="password" id="confirmNewPassword" class="form-control profile-password-input"
+                                           placeholder="Re-enter the new password" autocomplete="new-password">
+                                    <button type="button" class="btn profile-eye-button" data-password-for="confirmNewPassword"
+                                            aria-label="Show password">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                            <line x1="3" y1="3" x2="21" y2="21" style="display: none" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="profile-password-button" class="btn profile-password-button">Change Password</button>
+                            <button type="button" id="profile-password-clear-button" class="btn profile-password-clear-button">Clear</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/profile.js"></script>
+</body>
+</html>
